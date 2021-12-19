@@ -1,0 +1,22 @@
+    <div class="bar">
+      <div class="none">
+        <a href="/admin">list all</a>
+        /
+        <a href="/update">update yours</a>
+        /
+        <a href="/invite">invite</a>
+        /
+        <a href="/shutdown">shutdown</a>
+      </div>
+      <div class="auto">
+      </div>
+      <div class="auto">
+      </div>
+      <div class="none">
+        <form class="signout" action="/signout" method="post">
+          <th:block th:text="${bar.username}"></th:block>
+          (admin)
+          <button name="button" value="signout">sign out</button>
+        </form>
+      </div>
+    </div>

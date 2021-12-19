@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Your account</title>
+<th:block th:replace="parts/head"></th:block>
+  </head>
+  <body>
+<th:block th:replace="${bar.getClass().getName()}"></th:block>
+    <h1>Your account</h1>
+
+    <form method="post" action="/update/username">
+      <input type="hidden" name="id" th:value="${account.id}" />
+      <p>
+        <label for="name">Name:</label>
+        <input type="text" name="name" th:value="${account.name}" required="required"></input>
+      </p>
+      <button name="button" value="update">update</button>
+    </form>
+
+    <form method="post" action="/update/description">
+<!-- FIXME not needed -->
+      <input type="hidden" name="id" th:value="${account.id}" />
+      <p>
+        <label for="description">Description:</label>
+        <textarea name="description" th:text="${account.description}"></textarea>
+      </p>
+      <button name="button" value="update">update</button>
+    </form>
+
+    <form method="post" action="/update/password">
+      <p>
+        <label for="oldPassword">Old Password:</label>
+        <input type="password" name="oldPassword" required="required" />
+      </p>
+      <p>
+        <label for="newPassword">New Password:</label>
+        <input type="password" name="newPassword" required="required" />
+      </p>
+      <p>
+        <label for="verify">New Password (verify):</label>
+        <input type="password" name="verify" required="required" />
+      </p>
+      <button name="button" value="update">update</button>
+    </form>
+
+    <form method="post" action="/delete">
+      <p>
+        <label for="password">Password:</label>
+        <input type="password" name="password" required="required" />
+      </p>
+      <button name="button" value="delete">delete</button>
+    </form>
+  </body>
+</html>

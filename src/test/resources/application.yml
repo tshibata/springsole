@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:h2
+app:
+  openEntry: true
+  adminId: 1
+  backup:
+    cron: '0 0 0 31 2 *' # never
+

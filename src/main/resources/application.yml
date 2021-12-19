@@ -1,0 +1,20 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 3600
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost:9092/./h2
+    username: sa
+    password: ""
+  jpa:
+    #show-sql: true
+app:
+  openEntry: true
+  adminId: 1
+  backup:
+    cron: "0 * * * * *"
+    #file: "E'.mv.db'"
+

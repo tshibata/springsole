@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Sign in</title>
+<th:block th:replace="parts/head"></th:block>
+  </head>
+  <body>
+<th:block th:replace="${bar.getClass().getName()}"></th:block>
+    <h1>Sign in</h1>
+    <div th:if="${err}" th:text="${err}">
+    </div>
+    <form method="post" action="/signin">
+      <p>
+        <label for="name">Name:</label>
+        <input type="text" name="username" required="required" />
+      </p>
+      <p>
+        <label for="password">Password:</label>
+        <input type="password" name="password" required="required" />
+      </p>
+      <button name="button" value="sign in">sign in</button>
+    </form>
+  </body>
+</html>
