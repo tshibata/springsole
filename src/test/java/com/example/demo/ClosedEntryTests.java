@@ -3,6 +3,7 @@ package com.example.demo;
 import java.util.*;
 import java.net.URL;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
@@ -20,8 +21,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.web.context.WebApplicationContext;
 
+
 @SpringBootTest
-public class AnonymousTests {
+public class ClosedEntryTests {
 
 	@Autowired
 	AppProperties properties;
@@ -36,31 +38,29 @@ public class AnonymousTests {
 
 	@BeforeEach
 	void beforeEach() {
-		properties.setOpenEntry(true);
+		properties.setOpenEntry(false);
 		webClient = MockMvcWebClientBuilder.webAppContextSetup(webApplicationContext).build();
 	}
 
 	@Test
-	void listNothingWhenEmpty() throws java.io.IOException {
+	void CantFindSignUpPage() throws java.io.IOException {
 		HtmlPage page;
 		page = webClient.getPage("http://localhost:8080/accounts");
-		for (HtmlAnchor anchor: page.getAnchors()) {
-			Assertions.assertFalse(anchor.getTextContent().contains("/accounts?page="));
+		try {
+			page.getAnchorByText(messageSource.getMessage("sign_up", new String[]{}, Locale.ENGLISH));
+			Assertions.fail("ElementNotFoundException must be thrown");
+		} catch (ElementNotFoundException ex) {
 		}
 	}
 
 	@Test
-	void canSignin() throws java.io.IOException {
-		HtmlPage page; 
-		page = webClient.getPage("http://localhost:8080/accounts");
-		page.getAnchorByText(messageSource.getMessage("sign_in", new String[]{}, Locale.ENGLISH));
-		page.getAnchorByHref("/signin");
-	}
-
-	@Test
-	void updateWithoutSignin() throws java.io.IOException {
+	void CantSignUp() throws java.io.IOException {
 		HtmlPage page;
-		page = webClient.getPage("http://localhost:8080/update");
-		Assertions.assertEquals(page.getTitleText(), "Sign in");
+		try {
+			page = webClient.getPage("http://localhost:8080/signup");
+			Assertions.fail("FailingHttpStatusCodeException must be thrown");
+		} catch (FailingHttpStatusCodeException ex) {
+			Assertions.assertEquals(403, ex.getStatusCode());
+		}
 	}
 }

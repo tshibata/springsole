@@ -20,12 +20,16 @@ import org.springframework.web.context.WebApplicationContext;
 public class SignupTests {
 
 	@Autowired
+	AppProperties properties;
+
+	@Autowired
 	WebApplicationContext webApplicationContext;
 
 	WebClient webClient; 
 
 	@BeforeEach
 	void setup() {
+		properties.setOpenEntry(true);
 		webClient = MockMvcWebClientBuilder.webAppContextSetup(webApplicationContext).build();
 	}
 
