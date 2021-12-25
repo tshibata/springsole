@@ -11,6 +11,8 @@ spring:
     password: ""
   jpa:
     #show-sql: true
+  session:
+    store-type: jdbc
 app:
   openEntry: true
   adminId: 1
