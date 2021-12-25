@@ -1,8 +1,8 @@
     <div class="bar">
       <div class="none">
-        <a href="/accounts">list all</a>
+        <a href="/accounts" th:text="#{list_all}"></a>
         /
-        <a href="/update">update yours</a>
+        <a href="/update" th:text="#{update_yours}"></a>
       </div>
       <div class="auto">
       </div>
@@ -11,7 +11,7 @@
       <div class="none">
         <form class="signout" action="/signout" method="post">
           <th:block th:text="${bar.username}"></th:block>
-          <button name="button" value="signout">sign out</button>
+          <button name="button" value="signout" th:text="#{sign_out}"></button>
         </form>
       </div>
     </div>

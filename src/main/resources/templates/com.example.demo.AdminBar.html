@@ -1,12 +1,12 @@
     <div class="bar">
       <div class="none">
-        <a href="/admin">list all</a>
+        <a href="/admin" th:text="#{list_all}"></a>
         /
-        <a href="/update">update yours</a>
+        <a href="/update" th:text="#{update_yours}"></a>
         /
-        <a href="/invite">invite</a>
+        <a href="/invite" th:text="#{invite}"></a>
         /
-        <a href="/shutdown">shutdown</a>
+        <a href="/shutdown" th:text="#{shutdown}"></a>
       </div>
       <div class="auto">
       </div>
@@ -16,7 +16,7 @@
         <form class="signout" action="/signout" method="post">
           <th:block th:text="${bar.username}"></th:block>
           (admin)
-          <button name="button" value="signout">sign out</button>
+          <button name="button" value="signout" th:text="#{sign_out}"></button>
         </form>
       </div>
     </div>
