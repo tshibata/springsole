@@ -64,7 +64,7 @@ public class DemoApplication {
 	@Value("${app.backup.file:'backup.mv.db'}")
 	String backup;
 
-	@Scheduled(cron = "${app.backup.cron:'-'}")
+	@Scheduled(cron = "${app.backup.cron:-}")
 	void dbCron() throws SQLException, IOException {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(backup);
 		server.stop();
