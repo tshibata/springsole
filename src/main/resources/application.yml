@@ -18,5 +18,5 @@ app:
   adminId: 1
   backup:
     cron: "0 * * * * *"
-    #file: "E'.mv.db'"
+    file: "eHH'.mv.db'"
 
