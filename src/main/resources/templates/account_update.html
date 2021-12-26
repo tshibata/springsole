@@ -8,7 +8,7 @@
 <th:block th:replace="${bar.getClass().getName()}"></th:block>
     <h1>Your account</h1>
 
-    <form method="post" action="/update/username">
+    <form name="username" method="post" action="/update/username">
       <input type="hidden" name="id" th:value="${account.id}" />
       <p>
         <label for="name">Name:</label>
@@ -17,9 +17,7 @@
       <button name="button" value="update">update</button>
     </form>
 
-    <form method="post" action="/update/description">
-<!-- FIXME not needed -->
-      <input type="hidden" name="id" th:value="${account.id}" />
+    <form name="description" method="post" action="/update/description">
       <p>
         <label for="description">Description:</label>
         <textarea name="description" th:text="${account.description}"></textarea>
@@ -27,7 +25,7 @@
       <button name="button" value="update">update</button>
     </form>
 
-    <form method="post" action="/update/password">
+    <form name="password" method="post" action="/update/password">
       <p>
         <label for="oldPassword">Old Password:</label>
         <input type="password" name="oldPassword" required="required" />
@@ -43,7 +41,7 @@
       <button name="button" value="update">update</button>
     </form>
 
-    <form method="post" action="/delete">
+    <form name="delete" method="post" action="/delete">
       <p>
         <label for="password">Password:</label>
         <input type="password" name="password" required="required" />

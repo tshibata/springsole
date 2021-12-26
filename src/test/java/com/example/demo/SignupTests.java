@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.util.*;
 import java.net.URL;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.MessageSource;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -21,6 +23,9 @@ public class SignupTests {
 
 	@Autowired
 	AppProperties properties;
+
+	@Autowired
+	MessageSource messageSource;
 
 	@Autowired
 	WebApplicationContext webApplicationContext;
@@ -50,9 +55,15 @@ public class SignupTests {
 		return submit.click();
 	}
 
+	HtmlPage delete(HtmlPage page, String password) throws java.io.IOException {
+		page = page.getAnchorByText(messageSource.getMessage("update_yours", new String[]{}, Locale.ENGLISH)).click();
+		HtmlForm form = page.getFormByName("delete");
+		form.getInputByName("password").setValueAttribute(password);
+		return form.getButtonByName("button").click();
+	}
+
 	@Test
 	void tooShortName() throws java.io.IOException {
-		signup("admin", "admin");
 		HtmlPage page = signup("abcd", "tester");
 		Assertions.assertEquals("Sign up", page.getTitleText());
 		Assertions.assertTrue(page.getVisibleText().toLowerCase().contains("too short"));
@@ -60,16 +71,14 @@ public class SignupTests {
 
 	@Test
 	void almostTooShortName() throws java.io.IOException {
-		signup("admin", "admin");
 		HtmlPage page = signup("abcde", "tester");
 		Assertions.assertEquals("Your account", page.getTitleText());
 		Assertions.assertTrue(page.getVisibleText().contains("abcde"));
-		//Assertions.assertTrue(page.getVisibleText().contains("Hello abcde."));
+		delete(page, "tester");
 	}
 
 	@Test
 	void tooLongName() throws java.io.IOException {
-		signup("admin", "admin");
 		HtmlPage page = signup("1234567890123456", "tester");
 		Assertions.assertEquals("Sign up", page.getTitleText());
 		Assertions.assertTrue(page.getVisibleText().toLowerCase().contains("too long"));
@@ -77,10 +86,9 @@ public class SignupTests {
 
 	@Test
 	void almostTooLongName() throws java.io.IOException {
-		signup("admin", "admin");
 		HtmlPage page = signup("123456789012345", "tester");
 		Assertions.assertEquals("Your account", page.getTitleText());
 		Assertions.assertTrue(page.getVisibleText().contains("123456789012345"));
-		//Assertions.assertTrue(page.getVisibleText().contains("Hello 123456789012345."));
+		delete(page, "tester");
 	}
 }
