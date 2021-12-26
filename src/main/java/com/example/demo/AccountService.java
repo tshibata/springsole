@@ -38,6 +38,10 @@ public class AccountService {
 		return repository.findByName(name);
 	}
 
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+
 	public Page<AccountEntity> getAll(Pageable pageable) {
 		return repository.findAll(pageable);
 	}

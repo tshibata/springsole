@@ -168,4 +168,16 @@ public class AuthController {
 		accountService.post(account);
 		return "redirect:/accounts/" + account.name;
 	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String delete(RedirectAttributes attr, @RequestParam("password") String password) throws AnonymousException {
+		AccountEntity account = accountService.getCurrent();
+		if (! passwordEncoder.matches(password, account.password)) {
+			attr.addFlashAttribute("err", "Password didn't match.");
+			return "redirect:/update";
+		}
+		session.setAttribute("account_id", null);
+		accountService.delete(account.id);
+		return "redirect:/accounts";
+	}
 }
