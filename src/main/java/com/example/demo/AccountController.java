@@ -27,7 +27,7 @@ public class AccountController {
 
 	static SortedSet pages(Page current) { // FIXME rename
 		SortedSet set = new TreeSet<Integer>();
-		if (! set.isEmpty()) {
+		if (! current.isEmpty()) {
 			set.add(0);
 			set.add(current.previousOrFirstPageable().getPageNumber());
 			set.add(current.getNumber());
@@ -133,6 +133,6 @@ public class AccountController {
 		AccountEntity account = accountService.get(id).orElseThrow(NotFoundException::new);
 		account.valid = valid.orElse(false);
 		accountService.post(account);
-		return "redirect:/admin/?valid=" + account.valid;
+		return "redirect:/admin";
 	}
 }
