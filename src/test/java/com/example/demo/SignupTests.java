@@ -92,4 +92,12 @@ public class SignupTests {
 		Assertions.assertTrue(page.getVisibleText().contains("123456789012345"));
 		delete(page, "tester");
 	}
+
+	@Test
+	void nameConfliction() throws java.io.IOException {
+		HtmlPage page = signup("admin", "tester");
+		Assertions.assertEquals("Sign up", page.getTitleText());
+		String message = messageSource.getMessage("name_confliction", new String[] {"admin"}, LocaleContextHolder.getLocale());
+		Assertions.assertTrue(page.getVisibleText().contains(message));
+	}
 }

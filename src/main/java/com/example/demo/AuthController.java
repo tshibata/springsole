@@ -1,8 +1,12 @@
 package com.example.demo;
 
 import java.util.Optional;
+import java.sql.SQLException;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,9 @@ public class AuthController {
 
 	@Autowired
 	AppProperties properties;
+
+	@Autowired
+	MessageSource messageSource;
 
 	@Autowired
 	AccountService accountService;
@@ -62,10 +69,6 @@ public class AuthController {
 		if (! checkUsername(attr, name)) {
 			return null;
 		}
-		if (accountService.get(name).isPresent()) {
-			attr.addFlashAttribute("err", "\"" + name + "\" already exists.");
-			return null;
-		}
 		if (! checkPassword(attr, password, verify)) {
 			return null;
 		}
@@ -74,6 +77,13 @@ public class AuthController {
 		account.password = passwordEncoder.encode(password);
 		account.description = "";
 		account.valid = true;
+		try {
+			accountService.post(account);
+		} catch (DataIntegrityViolationException ex) {
+			String message = messageSource.getMessage("name_confliction", new String[] {name}, LocaleContextHolder.getLocale());
+			attr.addFlashAttribute("err", message);
+			return null;
+		}
 		accountService.post(account);
 		return account;
 	}
@@ -139,13 +149,17 @@ public class AuthController {
 	@RequestMapping(value = "/update/username", method = RequestMethod.POST)
 	public String updateUsername(RedirectAttributes attr, @RequestParam("name") String name) throws AnonymousException {
 		AccountEntity account = accountService.getCurrent();
-		String message = properties.checkProhibitedPatterns("username", name);
-		if (message != null) {
-			attr.addFlashAttribute("err", message);
+		if (! checkUsername(attr, name)) {
 			return "redirect:/update";
 		}
 		account.name = name;
-		accountService.post(account);
+		try {
+			accountService.post(account);
+		} catch (DataIntegrityViolationException ex) {
+			String message = messageSource.getMessage("name_confliction", new String[] {name}, LocaleContextHolder.getLocale());
+			attr.addFlashAttribute("err", message);
+			return "redirect:/update";
+		}
 		return "redirect:/accounts/" + account.name;
 	}
 
