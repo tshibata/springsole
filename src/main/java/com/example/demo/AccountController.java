@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
@@ -20,6 +21,9 @@ public class AccountController {
 
 	@Autowired
 	AccountService accountService;
+
+	@Autowired
+	AppProperties properties;
 
 	Parser parser = Parser.builder().build();
 
@@ -66,14 +70,6 @@ public class AccountController {
 		AccountEntity account = accountService.getCurrent();
 		model.addAttribute("account", account);
 		return "account_update";
-	}
-
-	@RequestMapping(value = "/update/username", method = RequestMethod.POST)
-	public String updateUsername(/*Model model, */@RequestParam("name") String name) throws AnonymousException {
-		AccountEntity account = accountService.getCurrent();
-		account.name = name;
-		accountService.post(account);
-		return "redirect:/accounts/" + account.name;
 	}
 
 	@RequestMapping(value = "/update/description", method = RequestMethod.POST)

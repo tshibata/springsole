@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -54,7 +55,7 @@ public class AdminTests {
 	void canRegisterANewAccount() throws java.io.IOException {
 		HtmlPage page;
 		page = webClient.getPage("http://localhost:8080/accounts");
-		page = page.getAnchorByText(messageSource.getMessage("invite", new String[]{}, Locale.ENGLISH)).click();
+		page = page.getAnchorByText(messageSource.getMessage("invite", new String[]{}, LocaleContextHolder.getLocale())).click();
 
 		String username = "invited";
 		String password = "invited";

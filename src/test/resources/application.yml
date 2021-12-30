@@ -4,4 +4,13 @@ spring:
 app:
   openEntry: true
   adminId: 1
+  prohibited-patterns:
+    username:
+      1_too_short_username: "^.{0,4}$"
+      2_too_long_username: "^.{16,}$"
+      3_wrong_letter_in_username: "[^A-Za-z0-9-]"
+    password:
+      1_too_short : "^.{0,4}$"
+      2_too_long : "^.{16,}$"
+      3_letters: "[^!-~]"
 

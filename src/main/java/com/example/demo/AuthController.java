@@ -37,37 +37,18 @@ public class AuthController {
 	}
 
 	boolean checkUsername(RedirectAttributes attr, String name) {
-		if (name.length() < 5) {
-			attr.addFlashAttribute("err", "\"" + name + "\" is too short.");
-			return false;
-		}
-		if (15 < name.length()) {
-			attr.addFlashAttribute("err", "\"" + name + "\" is too long.");
-			return false;
-		}
-		for (char c: name.toCharArray()) {
-			if ('A' <= c && c <= 'Z') continue;
-			if ('a' <= c && c <= 'z') continue;
-			if ('0' <= c && c <= '9') continue;
-			if (c == '-') continue;
-			attr.addFlashAttribute("err", "User name can not contain \"" + c + "\".");
+		String message = properties.checkProhibitedPatterns("username", name);
+		if (message != null) {
+			attr.addFlashAttribute("err", message);
 			return false;
 		}
 		return true;
 	}
 
 	boolean checkPassword(RedirectAttributes attr, String password, String verify) {
-		if (password.length() < 5) {
-			attr.addFlashAttribute("err", "Too short password.");
-			return false;
-		}
-		if (15 < password.length()) {
-			attr.addFlashAttribute("err", "Too long password.");
-			return false;
-		}
-		for (char c: password.toCharArray()) {
-			if ('!' <= c && c <= '~') continue;
-			attr.addFlashAttribute("err", "Password can not contain \"" + c + "\".");
+		String message = properties.checkProhibitedPatterns("password", password);
+		if (message != null) {
+			attr.addFlashAttribute("err", message);
 			return false;
 		}
 		if (! password.equals(verify)) {
@@ -155,14 +136,28 @@ public class AuthController {
 		return "redirect:/signin";
 	}
 
+	@RequestMapping(value = "/update/username", method = RequestMethod.POST)
+	public String updateUsername(RedirectAttributes attr, @RequestParam("name") String name) throws AnonymousException {
+		AccountEntity account = accountService.getCurrent();
+		String message = properties.checkProhibitedPatterns("username", name);
+		if (message != null) {
+			attr.addFlashAttribute("err", message);
+			return "redirect:/update";
+		}
+		account.name = name;
+		accountService.post(account);
+		return "redirect:/accounts/" + account.name;
+	}
+
 	@RequestMapping(value = "/update/password", method = RequestMethod.POST)
 	public String password(RedirectAttributes attr, @RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, @RequestParam("verify") String verify) throws AnonymousException {
 		AccountEntity account = accountService.getCurrent();
 		if (! passwordEncoder.matches(oldPassword, account.password)) {
 			attr.addFlashAttribute("err", "Old password didn't match.");
+			return "redirect:/update";
 		}
 		if (! checkPassword(attr, newPassword, verify)) {
-			return "redirect:/password";
+			return "redirect:/update";
 		}
 		account.password = passwordEncoder.encode(newPassword);
 		accountService.post(account);

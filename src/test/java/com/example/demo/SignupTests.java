@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -56,7 +57,7 @@ public class SignupTests {
 	}
 
 	HtmlPage delete(HtmlPage page, String password) throws java.io.IOException {
-		page = page.getAnchorByText(messageSource.getMessage("update_yours", new String[]{}, Locale.ENGLISH)).click();
+		page = page.getAnchorByText(messageSource.getMessage("update_yours", new String[]{}, LocaleContextHolder.getLocale())).click();
 		HtmlForm form = page.getFormByName("delete");
 		form.getInputByName("password").setValueAttribute(password);
 		return form.getButtonByName("button").click();
@@ -66,7 +67,7 @@ public class SignupTests {
 	void tooShortName() throws java.io.IOException {
 		HtmlPage page = signup("abcd", "tester");
 		Assertions.assertEquals("Sign up", page.getTitleText());
-		Assertions.assertTrue(page.getVisibleText().toLowerCase().contains("too short"));
+		Assertions.assertTrue(page.getVisibleText().contains(messageSource.getMessage("1_too_short_username", new String[]{}, LocaleContextHolder.getLocale())));
 	}
 
 	@Test
@@ -81,7 +82,7 @@ public class SignupTests {
 	void tooLongName() throws java.io.IOException {
 		HtmlPage page = signup("1234567890123456", "tester");
 		Assertions.assertEquals("Sign up", page.getTitleText());
-		Assertions.assertTrue(page.getVisibleText().toLowerCase().contains("too long"));
+		Assertions.assertTrue(page.getVisibleText().contains(messageSource.getMessage("2_too_long_username", new String[]{}, LocaleContextHolder.getLocale())));
 	}
 
 	@Test

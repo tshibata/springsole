@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -53,7 +54,7 @@ public class AnonymousTests {
 	void canSignin() throws java.io.IOException {
 		HtmlPage page; 
 		page = webClient.getPage("http://localhost:8080/accounts");
-		page.getAnchorByText(messageSource.getMessage("sign_in", new String[]{}, Locale.ENGLISH));
+		page.getAnchorByText(messageSource.getMessage("sign_in", new String[]{}, LocaleContextHolder.getLocale()));
 		page.getAnchorByHref("/signin");
 	}
 
