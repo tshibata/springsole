@@ -30,9 +30,9 @@ public class Fallback {
 				return new ClosedBar();
 			}
 		} else if (accountService.isAdmin(account)) {
-			return new AdminBar(account.name);
+			return new AdminBar(account.username);
 		} else {
-			return new UserBar(account.name);
+			return new UserBar(account.username);
 		}
 	}
 

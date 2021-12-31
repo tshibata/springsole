@@ -34,8 +34,8 @@ public class AccountService {
 		return repository.findById(id);
 	}
 
-	public Optional<AccountEntity> get(String name) {
-		return repository.findByName(name);
+	public Optional<AccountEntity> get(String username) {
+		return repository.findByUsername(username);
 	}
 
 	public void delete(Long id) {

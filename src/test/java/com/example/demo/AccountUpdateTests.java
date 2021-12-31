@@ -62,7 +62,7 @@ public class AccountUpdateTests {
 	HtmlPage changeName(HtmlPage page, String username) throws java.io.IOException {
 		page = page.getAnchorByText(messageSource.getMessage("update_yours", new String[]{}, LocaleContextHolder.getLocale())).click();
 		HtmlForm form = page.getFormByName("username");
-		form.getInputByName("name").setValueAttribute(username);
+		form.getInputByName("username").setValueAttribute(username);
 		return form.getButtonByName("button").click();
 	}
 

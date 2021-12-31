@@ -14,8 +14,8 @@
     <form name="username" method="post" action="/update/username">
       <input type="hidden" name="id" th:value="${account.id}" />
       <p>
-        <label for="name">Name:</label>
-        <input type="text" name="name" th:value="${account.name}" required="required"></input>
+        <label for="username">Username:</label>
+        <input type="text" name="username" th:value="${account.username}" required="required"></input>
       </p>
       <button name="button" value="update">update</button>
     </form>

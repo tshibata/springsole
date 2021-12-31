@@ -12,7 +12,7 @@ public class AccountEntity {
 	public long id;
 
 	@Column(nullable = false)
-	public String name;
+	public String username;
 
 	@Column(nullable = false)
 	public String password;

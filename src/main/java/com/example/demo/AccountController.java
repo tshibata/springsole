@@ -54,13 +54,13 @@ public class AccountController {
 		return "account_list";
 	}
 
-	@RequestMapping(value = "/accounts/{name}", method = RequestMethod.GET)
-	public String accounts(Model model, @PathVariable("name") String name) throws AnonymousException, ForbiddenException, NotFoundException {
-		AccountEntity account = accountService.get(name).orElseThrow(NotFoundException::new);
+	@RequestMapping(value = "/accounts/{username}", method = RequestMethod.GET)
+	public String accounts(Model model, @PathVariable("username") String username) throws AnonymousException, NotFoundException {
+		AccountEntity account = accountService.get(username).orElseThrow(NotFoundException::new);
 		if (! account.valid) {
 			throw new NotFoundException();
 		}
-		model.addAttribute("name", account.name);
+		model.addAttribute("username", account.username);
 		model.addAttribute("description", renderer.render(parser.parse(account.description)));
 		return "account";
 	}
@@ -77,7 +77,7 @@ public class AccountController {
 		AccountEntity account = accountService.getCurrent();
 		account.description = description;
 		accountService.post(account);
-		return "redirect:/accounts/" + account.name;
+		return "redirect:/accounts/" + account.username;
 	}
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)

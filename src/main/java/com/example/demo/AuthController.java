@@ -43,8 +43,8 @@ public class AuthController {
 		return "signup";
 	}
 
-	boolean checkUsername(RedirectAttributes attr, String name) {
-		String message = properties.checkProhibitedPatterns("username", name);
+	boolean checkUsername(RedirectAttributes attr, String username) {
+		String message = properties.checkProhibitedPatterns("username", username);
 		if (message != null) {
 			attr.addFlashAttribute("err", message);
 			return false;
@@ -65,22 +65,22 @@ public class AuthController {
 		return true;
 	}
 
-	AccountEntity create(RedirectAttributes attr, String name, String password, String verify) {
-		if (! checkUsername(attr, name)) {
+	AccountEntity create(RedirectAttributes attr, String username, String password, String verify) {
+		if (! checkUsername(attr, username)) {
 			return null;
 		}
 		if (! checkPassword(attr, password, verify)) {
 			return null;
 		}
 		AccountEntity account = new AccountEntity();
-		account.name = name;
+		account.username = username;
 		account.password = passwordEncoder.encode(password);
 		account.description = "";
 		account.valid = true;
 		try {
 			accountService.post(account);
 		} catch (DataIntegrityViolationException ex) {
-			String message = messageSource.getMessage("name_confliction", new String[] {name}, LocaleContextHolder.getLocale());
+			String message = messageSource.getMessage("name_confliction", new String[] {username}, LocaleContextHolder.getLocale());
 			attr.addFlashAttribute("err", message);
 			return null;
 		}
@@ -89,11 +89,11 @@ public class AuthController {
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-	public String signup(RedirectAttributes attr, @RequestParam("username")String name, @RequestParam("password")String password, @RequestParam("verify")String verify) throws ForbiddenException {
+	public String signup(RedirectAttributes attr, @RequestParam("username")String username, @RequestParam("password")String password, @RequestParam("verify")String verify) throws ForbiddenException {
 		if (! properties.getOpenEntry()) {
 			throw new ForbiddenException();
 		}
-		AccountEntity account = create(attr, name, password, verify);
+		AccountEntity account = create(attr, username, password, verify);
 		if (account == null) {
 			return "redirect:/signup";
 		}
@@ -129,8 +129,8 @@ public class AuthController {
 	}
 
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
-	public String signin(RedirectAttributes attr, @RequestParam("username")String name, @RequestParam("password")String password) {
-		Optional<AccountEntity> account = accountService.get(name).filter(a -> accountService.canSignin(a) && passwordEncoder.matches(password, a.password));
+	public String signin(RedirectAttributes attr, @RequestParam("username")String username, @RequestParam("password")String password) {
+		Optional<AccountEntity> account = accountService.get(username).filter(a -> accountService.canSignin(a) && passwordEncoder.matches(password, a.password));
 		if (account.isPresent()) {
 			session.setAttribute("account_id", account.orElseThrow(RuntimeException::new).id);
 			return "redirect:/update";
@@ -147,20 +147,20 @@ public class AuthController {
 	}
 
 	@RequestMapping(value = "/update/username", method = RequestMethod.POST)
-	public String updateUsername(RedirectAttributes attr, @RequestParam("name") String name) throws AnonymousException {
+	public String updateUsername(RedirectAttributes attr, @RequestParam("username") String username) throws AnonymousException {
 		AccountEntity account = accountService.getCurrent();
-		if (! checkUsername(attr, name)) {
+		if (! checkUsername(attr, username)) {
 			return "redirect:/update";
 		}
-		account.name = name;
+		account.username = username;
 		try {
 			accountService.post(account);
 		} catch (DataIntegrityViolationException ex) {
-			String message = messageSource.getMessage("name_confliction", new String[] {name}, LocaleContextHolder.getLocale());
+			String message = messageSource.getMessage("name_confliction", new String[] {username}, LocaleContextHolder.getLocale());
 			attr.addFlashAttribute("err", message);
 			return "redirect:/update";
 		}
-		return "redirect:/accounts/" + account.name;
+		return "redirect:/accounts/" + account.username;
 	}
 
 	@RequestMapping(value = "/update/password", method = RequestMethod.POST)
@@ -175,7 +175,7 @@ public class AuthController {
 		}
 		account.password = passwordEncoder.encode(newPassword);
 		accountService.post(account);
-		return "redirect:/accounts/" + account.name;
+		return "redirect:/accounts/" + account.username;
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)

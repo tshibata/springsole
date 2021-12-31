@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Admin: <th:block th:text="${account.name}"></th:block></title>
+    <title>Admin: <th:block th:text="${account.username}"></th:block></title>
 <th:block th:replace="parts/head"></th:block>
   </head>
   <body>
 <th:block th:replace="${bar.getClass().getName()}"></th:block>
-    <h1>Admin: <th:block th:text="${account.name}"></th:block></h1>
+    <h1>Admin: <th:block th:text="${account.username}"></th:block></h1>
     <form method="post" th:action="'/admin/' + ${account.id}">
       <p>
         <label for="valid">Valid:</label>
