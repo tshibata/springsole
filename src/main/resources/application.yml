@@ -17,7 +17,7 @@ app:
   open-entry: true
   adminId: 1
   backup:
-    cron: "0 * * * * *"
+    cron: "0 0 0 * * *"
     file: "eHH'.mv.db'"
   prohibited-patterns:
     username:
