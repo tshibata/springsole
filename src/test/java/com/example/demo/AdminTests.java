@@ -18,23 +18,32 @@ public class AdminTests extends AbstractHtmlTests {
 		properties.setOpenEntry(false);
 	}
 
-	@Test
-	void canRegisterANewAccount() throws java.io.IOException {
+	HtmlPage register(String username, String password, String verify) throws java.io.IOException {
 		HtmlPage page;
-		page = webClient.getPage("http://localhost:8080/accounts");
+		page = webClient.getPage("http://localhost:8080/");
 		page = page.getAnchorByText(getMessage("invite")).click();
-
-		String username = "invited";
-		String password = "invited";
 		HtmlForm form = page.getFormByName("signup");
 		HtmlTextInput usernameInput = page.getElementByName("username");
 		usernameInput.setValueAttribute(username);
 		HtmlPasswordInput passwordInput = page.getElementByName("password");
 		passwordInput.setValueAttribute(password);
 		HtmlPasswordInput passwordInput2 = page.getElementByName("verify");
-		passwordInput2.setValueAttribute(password);
+		passwordInput2.setValueAttribute(verify);
 		HtmlButton submit = form.getOneHtmlElementByAttribute("button", "value", "invite");
-		submit.click();
+		return submit.click();
+	}
+
+	HtmlPage register(String username, String password) throws java.io.IOException {
+		return register(username, password, password);
+	}
+
+	@Test
+	void canRegisterANewAccount() throws java.io.IOException {
+		HtmlPage page;
+		page = register("invited", "invited");
+		signout(page);
+		page = signin("invited", "invited");
+		delete(page, "invited");
 	}
 }
 

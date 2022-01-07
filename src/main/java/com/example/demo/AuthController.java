@@ -59,7 +59,8 @@ public class AuthController {
 			return false;
 		}
 		if (! password.equals(verify)) {
-			attr.addFlashAttribute("err", "Password verify failed. Type twice exactly the same.");
+			message = messageSource.getMessage("password_inconsistency", new String[] {}, LocaleContextHolder.getLocale());
+			attr.addFlashAttribute("err", message);
 			return false;
 		}
 		return true;

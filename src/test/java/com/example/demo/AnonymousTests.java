@@ -27,7 +27,7 @@ public class AnonymousTests extends AbstractHtmlTests {
 	}
 
 	@Test
-	void canSignin() throws java.io.IOException {
+	void canFindSigninPage() throws java.io.IOException {
 		HtmlPage page; 
 		page = webClient.getPage("http://localhost:8080/accounts");
 		page.getAnchorByText(getMessage("sign_in"));
@@ -35,7 +35,7 @@ public class AnonymousTests extends AbstractHtmlTests {
 	}
 
 	@Test
-	void updateWithoutSignin() throws java.io.IOException {
+	void beRequestedToSignin() throws java.io.IOException {
 		HtmlPage page;
 		page = webClient.getPage("http://localhost:8080/update");
 		Assertions.assertEquals(page.getTitleText(), "Sign in");

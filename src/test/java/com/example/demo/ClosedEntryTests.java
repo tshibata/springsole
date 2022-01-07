@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
 @SpringBootTest
 public class ClosedEntryTests extends AbstractHtmlTests {
 
@@ -19,7 +18,7 @@ public class ClosedEntryTests extends AbstractHtmlTests {
 	}
 
 	@Test
-	void CantFindSignUpPage() throws java.io.IOException {
+	void CanNotFindSignUpPage() throws java.io.IOException {
 		HtmlPage page;
 		page = webClient.getPage("http://localhost:8080/accounts");
 		try {
@@ -30,7 +29,7 @@ public class ClosedEntryTests extends AbstractHtmlTests {
 	}
 
 	@Test
-	void CantSignUp() throws java.io.IOException {
+	void CanNotSignUp() throws java.io.IOException {
 		HtmlPage page;
 		try {
 			page = webClient.getPage("http://localhost:8080/signup");

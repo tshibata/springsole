@@ -23,6 +23,19 @@ public class AccountUpdateTests extends AbstractHtmlTests {
 		return form.getButtonByName("button").click();
 	}
 
+	HtmlPage changePassword(HtmlPage page, String oldPassword, String newPassword, String verify) throws java.io.IOException {
+		page = page.getAnchorByText(getMessage("update_yours")).click();
+		HtmlForm form = page.getFormByName("password");
+		form.getInputByName("oldPassword").setValueAttribute(oldPassword);
+		form.getInputByName("newPassword").setValueAttribute(newPassword);
+		form.getInputByName("verify").setValueAttribute(verify);
+		return form.getButtonByName("button").click();
+	}
+
+	HtmlPage changePassword(HtmlPage page, String oldPassword, String newPassword) throws java.io.IOException {
+		return changePassword(page, oldPassword, newPassword, newPassword);
+	}
+
 	@Test
 	void canChangeName() throws java.io.IOException {
 		HtmlPage page;
@@ -92,6 +105,58 @@ public class AccountUpdateTests extends AbstractHtmlTests {
 		page = signup("tester", "secret");
 		page = changeName(page, "admin");
 		page = webClient.getPage("http://localhost:8080/accounts/tester");
+		delete(page, "secret");
+	}
+
+	@Test
+	void tooShortPassword() throws java.io.IOException {
+		HtmlPage page;
+		page = signup("tester", "secret");
+		page = changePassword(page, "secret", "abcd");
+		delete(page, "secret");
+	}
+
+	@Test
+	void almostTooShortPassword() throws java.io.IOException {
+		HtmlPage page;
+		page = signup("tester", "secret");
+		page = changePassword(page, "secret", "abcde");
+		delete(page, "abcde");
+	}
+
+	@Test
+	void tooLongPassword() throws java.io.IOException {
+		HtmlPage page;
+		page = signup("tester", "secret");
+		page = changePassword(page, "secret", "1234567890123456");
+		delete(page, "secret");
+	}
+
+	@Test
+	void almostTooLongPassword() throws java.io.IOException {
+		HtmlPage page;
+		page = signup("tester", "secret");
+		page = changePassword(page, "secret", "123456789012345");
+		delete(page, "123456789012345");
+	}
+
+	@Test
+	void inconsistentPassword() throws java.io.IOException {
+		HtmlPage page;
+		page = signup("tester", "secret");
+		page = changePassword(page, "quatsch", "tonteria");
+		delete(page, "secret");
+	}
+
+	@Test
+	void canUpdateDescription() throws java.io.IOException {
+		HtmlPage page;
+		page = signup("tester", "secret");
+		page = page.getAnchorByText(getMessage("update_yours")).click();
+		HtmlForm form = page.getFormByName("description");
+		form.getTextAreaByName("description").setText("Hello!");
+		page = form.getButtonByName("button").click();
+		Assertions.assertTrue(page.getVisibleText().contains("Hello!"));
 		delete(page, "secret");
 	}
 }

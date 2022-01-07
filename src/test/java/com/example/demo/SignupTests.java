@@ -46,10 +46,47 @@ public class SignupTests extends AbstractHtmlTests {
 	}
 
 	@Test
-	void nameConfliction() throws java.io.IOException {
+	void canNotShareAName() throws java.io.IOException {
 		HtmlPage page = signup("admin", "tester");
 		Assertions.assertEquals("Sign up", page.getTitleText());
 		String message = getMessage("name_confliction", new String[] {"admin"});
 		Assertions.assertTrue(page.getVisibleText().contains(message));
+	}
+
+	@Test
+	void tooShortPassword() throws java.io.IOException {
+		HtmlPage page = signup("tester", "abcd");
+		Assertions.assertEquals("Sign up", page.getTitleText());
+		Assertions.assertTrue(page.getVisibleText().contains(getMessage("1_too_short_password")));
+	}
+
+	@Test
+	void almostTooShortPassword() throws java.io.IOException {
+		HtmlPage page = signup("tester", "abcde");
+		Assertions.assertEquals("Your account", page.getTitleText());
+		Assertions.assertTrue(page.getVisibleText().contains("tester"));
+		delete(page, "abcde");
+	}
+
+	@Test
+	void tooLongPassword() throws java.io.IOException {
+		HtmlPage page = signup("tester", "1234567890123456");
+		Assertions.assertEquals("Sign up", page.getTitleText());
+		Assertions.assertTrue(page.getVisibleText().contains(getMessage("2_too_long_password")));
+	}
+
+	@Test
+	void almostTooLongPassword() throws java.io.IOException {
+		HtmlPage page = signup("tester", "123456789012345");
+		Assertions.assertEquals("Your account", page.getTitleText());
+		Assertions.assertTrue(page.getVisibleText().contains("tester"));
+		delete(page, "123456789012345");
+	}
+
+	@Test
+	void inconsistentPassword() throws java.io.IOException {
+		HtmlPage page = signup("tester", "secret", "geheimnis");
+		Assertions.assertEquals("Sign up", page.getTitleText());
+		Assertions.assertTrue(page.getVisibleText().contains(getMessage("password_inconsistency")));
 	}
 }

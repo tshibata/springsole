@@ -35,14 +35,18 @@ public abstract class AbstractHtmlTests {
 		return getMessage(code, new String[]{});
 	}
 
-	HtmlPage signup(String username, String password) throws java.io.IOException {
+	HtmlPage signup(String username, String password, String verify) throws java.io.IOException {
 		HtmlPage page;
 		page = webClient.getPage("http://localhost:8080/signup");
 		HtmlForm form = page.getFormByName("signup");
 		form.getInputByName("username").setValueAttribute(username);
 		form.getInputByName("password").setValueAttribute(password);
-		form.getInputByName("verify").setValueAttribute(password);
+		form.getInputByName("verify").setValueAttribute(verify);
 		return form.getButtonByName("button").click();
+	}
+
+	HtmlPage signup(String username, String password) throws java.io.IOException {
+		return signup(username, password, password);
 	}
 
 	HtmlPage signin(String username, String password) throws java.io.IOException {
@@ -51,6 +55,11 @@ public abstract class AbstractHtmlTests {
 		HtmlForm form = page.getFormByName("signin");
 		form.getInputByName("username").setValueAttribute(username);
 		form.getInputByName("password").setValueAttribute(password);
+		return form.getButtonByName("button").click();
+	}
+
+	HtmlPage signout(HtmlPage page) throws java.io.IOException {
+		HtmlForm form = page.getFormByName("signout");
 		return form.getButtonByName("button").click();
 	}
 

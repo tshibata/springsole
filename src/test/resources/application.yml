@@ -10,7 +10,7 @@ app:
       2_too_long_username: "^.{16,}$"
       3_wrong_letter_in_username: "[^A-Za-z0-9-]"
     password:
-      1_too_short : "^.{0,4}$"
-      2_too_long : "^.{16,}$"
-      3_letters: "[^!-~]"
+      1_too_short_password : "^.{0,4}$"
+      2_too_long_password : "^.{16,}$"
+      3_wrong_letters_in_password: "[^!-~]"
 
