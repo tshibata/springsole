@@ -1,16 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Accounts</title>
+    <title>Validity</title>
 <th:block th:replace="parts/head"></th:block>
   </head>
   <body>
 <th:block th:replace="${bar.getClass().getName()}"></th:block>
-    <h1>Accounts</h1>
+    <h1>Validity</h1>
     <ul>
       <th:block th:each="account: ${accounts}">
       <li>
-        <a th:href="'/admin/' + ${account.id}" th:text="${account.username}"></a>
+        <a th:href="'/validity/' + ${account.id}" th:text="${account.username}"></a>
       </li>
       </th:block>
     </ul>
@@ -22,7 +22,7 @@
         <th:block th:text="${page + 1}"></th:block>
       </th:block>
       <th:block th:if="${accounts.getNumber() != page}">
-        <a th:href="'/admin/?page=' + ${page}" th:text="${page + 1}"></a>
+        <a th:href="'/validity/?page=' + ${page}" th:text="${page + 1}"></a>
       </th:block>
     </th:block>
   </body>

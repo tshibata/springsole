@@ -121,7 +121,7 @@ public class AuthController {
 		if (newAccount == null) {
 			return "redirect:/invite";
 		}
-		return "redirect:/admin/" + newAccount.id;
+		return "redirect:/validity/" + newAccount.id;
 	}
 
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)

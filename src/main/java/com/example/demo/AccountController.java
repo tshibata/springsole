@@ -80,7 +80,7 @@ public class AccountController {
 		return "redirect:/accounts/" + account.username;
 	}
 
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	@RequestMapping(value = "/validity", method = RequestMethod.GET)
 	public String admin(Model model, @PageableDefault(2) Pageable pageable) throws AnonymousException, ForbiddenException {
 		if (! accountService.isAdmin(accountService.getCurrent())) {
 			throw new ForbiddenException();
@@ -88,7 +88,7 @@ public class AccountController {
 		Page<AccountEntity> page = accountService.getAll(pageable);
 		model.addAttribute("accounts", page);
 		model.addAttribute("pages", pages(page));  // FIXME rename
-		return "admin_list";
+		return "validity_list";
 	}
 
 	@RequestMapping(value = "/shutdown", method = RequestMethod.GET)
@@ -110,7 +110,7 @@ public class AccountController {
 		return "redirect:/shutdown"; // this doesn't do anyway.
 	}
 
-	@RequestMapping(value = "/admin/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/validity/{id}", method = RequestMethod.GET)
 	public String admin(Model model, @PathVariable("id") long id) throws AnonymousException, ForbiddenException, NotFoundException {
 		if (! accountService.isAdmin(accountService.getCurrent())) {
 			throw new ForbiddenException();
@@ -118,10 +118,10 @@ public class AccountController {
 		AccountEntity account = accountService.get(id).orElseThrow(NotFoundException::new);
 		model.addAttribute("account", account);
 		model.addAttribute("description", renderer.render(parser.parse(account.description)));
-		return "admin";
+		return "validity";
 	}
 
-	@RequestMapping(value = "/admin/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/validity/{id}", method = RequestMethod.POST)
 	public String admin(Model model, @PathVariable("id") long id, @RequestParam("valid") Optional<Boolean> valid) throws AnonymousException, ForbiddenException, NotFoundException {
 		if (! accountService.isAdmin(accountService.getCurrent())) {
 			throw new ForbiddenException();
@@ -129,6 +129,6 @@ public class AccountController {
 		AccountEntity account = accountService.get(id).orElseThrow(NotFoundException::new);
 		account.valid = valid.orElse(false);
 		accountService.post(account);
-		return "redirect:/admin";
+		return "redirect:/validity";
 	}
 }
