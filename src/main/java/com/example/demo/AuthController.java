@@ -136,7 +136,8 @@ public class AuthController {
 			session.setAttribute("account_id", account.orElseThrow(RuntimeException::new).id);
 			return "redirect:/update";
 		} else {
-			attr.addFlashAttribute("err", "Wrong username or password.");
+			String message = messageSource.getMessage("authentication_failed", new String[] {username}, LocaleContextHolder.getLocale());
+			attr.addFlashAttribute("err", message);
 			return "redirect:/signin";
 		}
 	}
