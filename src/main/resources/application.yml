@@ -15,7 +15,7 @@ spring:
     store-type: jdbc
 app:
   open-entry: true
-  adminId: 1
+  admin-id: 1
   backup:
     cron: "0 0 0 * * *"
     file: "eHH'.mv.db'"
