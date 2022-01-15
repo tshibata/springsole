@@ -1,8 +1,8 @@
 div.bar {
 	display: flex;
 	flex-flow: row wrap;
-	border-style: solid;
-	border-radius: 0.5rem;
+	border-style: none none solid none;
+	border-radius: 0;
 	border-width: 1px;
 	background-color: white;
 	padding: 0.5rem;
