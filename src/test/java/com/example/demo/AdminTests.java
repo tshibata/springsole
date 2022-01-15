@@ -62,8 +62,6 @@ public class AdminTests extends AbstractHtmlTests {
 		} catch (FailingHttpStatusCodeException ex) {
 			Assertions.assertEquals(404, ex.getStatusCode());
 		}
-		signout(page);
-		page = signin("admin", "admin");
 		page = validate(page, "admin", true);
 		page = webClient.getPage("http://localhost:8080/accounts/admin");
 	}

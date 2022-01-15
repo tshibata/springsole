@@ -25,9 +25,12 @@ public class SignupTests extends AbstractHtmlTests {
 	@Test
 	void almostTooShortName() throws java.io.IOException {
 		HtmlPage page = signup("abcde", "tester");
-		Assertions.assertEquals("Your account", page.getTitleText());
-		Assertions.assertTrue(page.getVisibleText().contains("abcde"));
-		delete(page, "tester");
+		try {
+			Assertions.assertEquals("Your account", page.getTitleText());
+			Assertions.assertTrue(page.getVisibleText().contains("abcde"));
+		} finally {
+			delete(page, "tester");
+		}
 	}
 
 	@Test
@@ -40,9 +43,12 @@ public class SignupTests extends AbstractHtmlTests {
 	@Test
 	void almostTooLongName() throws java.io.IOException {
 		HtmlPage page = signup("123456789012345", "tester");
-		Assertions.assertEquals("Your account", page.getTitleText());
-		Assertions.assertTrue(page.getVisibleText().contains("123456789012345"));
-		delete(page, "tester");
+		try {
+			Assertions.assertEquals("Your account", page.getTitleText());
+			Assertions.assertTrue(page.getVisibleText().contains("123456789012345"));
+		} finally {
+			delete(page, "tester");
+		}
 	}
 
 	@Test
@@ -63,9 +69,12 @@ public class SignupTests extends AbstractHtmlTests {
 	@Test
 	void almostTooShortPassword() throws java.io.IOException {
 		HtmlPage page = signup("tester", "abcde");
-		Assertions.assertEquals("Your account", page.getTitleText());
-		Assertions.assertTrue(page.getVisibleText().contains("tester"));
-		delete(page, "abcde");
+		try {
+			Assertions.assertEquals("Your account", page.getTitleText());
+			Assertions.assertTrue(page.getVisibleText().contains("tester"));
+		} finally {
+			delete(page, "abcde");
+		}
 	}
 
 	@Test
@@ -78,9 +87,12 @@ public class SignupTests extends AbstractHtmlTests {
 	@Test
 	void almostTooLongPassword() throws java.io.IOException {
 		HtmlPage page = signup("tester", "123456789012345");
-		Assertions.assertEquals("Your account", page.getTitleText());
-		Assertions.assertTrue(page.getVisibleText().contains("tester"));
-		delete(page, "123456789012345");
+		try {
+			Assertions.assertEquals("Your account", page.getTitleText());
+			Assertions.assertTrue(page.getVisibleText().contains("tester"));
+		} finally {
+			delete(page, "123456789012345");
+		}
 	}
 
 	@Test
