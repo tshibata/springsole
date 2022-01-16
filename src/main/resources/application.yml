@@ -7,6 +7,7 @@ spring:
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:tcp://localhost:9092/./h2
+    #url: jdbc:h2:./h2
     username: sa
     password: ""
   jpa:
@@ -16,9 +17,6 @@ spring:
 app:
   open-entry: true
   admin-id: 1
-  backup:
-    cron: "0 0 0 * * *"
-    file: "eHH'.mv.db'"
   prohibited-patterns:
     username:
       1_too_short_username: "^.{0,4}$"
