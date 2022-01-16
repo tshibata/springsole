@@ -91,25 +91,6 @@ public class AccountController {
 		return "validity_list";
 	}
 
-	@RequestMapping(value = "/shutdown", method = RequestMethod.GET)
-	public String shutdown(Model model) throws AnonymousException, ForbiddenException {
-		if (! accountService.isAdmin(accountService.getCurrent())) {
-			throw new ForbiddenException();
-		}
-		return "shutdown";
-	}
-
-	@RequestMapping(value = "/shutdown", method = RequestMethod.POST)
-	public String shutdown(Model model, @RequestParam("button") String button) throws AnonymousException, ForbiddenException {
-		if (! accountService.isAdmin(accountService.getCurrent())) {
-			throw new ForbiddenException();
-		}
-		if (button.equals("shutdown")) {
-			DemoApplication.shutdown();
-		}
-		return "redirect:/shutdown"; // this doesn't do anyway.
-	}
-
 	@RequestMapping(value = "/validity/{id}", method = RequestMethod.GET)
 	public String admin(Model model, @PathVariable("id") long id) throws AnonymousException, ForbiddenException, NotFoundException {
 		if (! accountService.isAdmin(accountService.getCurrent())) {
