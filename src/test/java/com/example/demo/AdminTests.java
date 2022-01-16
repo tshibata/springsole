@@ -36,7 +36,9 @@ public class AdminTests extends AbstractHtmlTests {
 
 	HtmlPage validate(HtmlPage page, String username, boolean valid) throws java.io.IOException {
 		page = page.getAnchorByText(getMessage("validity")).click();
-		page = page.getAnchorByText(username).click();
+		page = page.getAnchors().stream()
+			.filter(x -> x.getVisibleText().equals(username) && x.getHrefAttribute().contains("/validity/"))
+			.findAny().orElse(null).click();
 		HtmlForm form = page.getFormByName("validity");
 		HtmlCheckBoxInput checkBox = form.getInputByName("valid");
 		checkBox.setChecked(valid);

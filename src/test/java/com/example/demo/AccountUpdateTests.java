@@ -17,14 +17,14 @@ public class AccountUpdateTests extends AbstractHtmlTests {
 	}
 
 	HtmlPage changeName(HtmlPage page, String username) throws java.io.IOException {
-		page = page.getAnchorByText(getMessage("update_yours")).click();
+		page = webClient.getPage("http://localhost:8080/update");
 		HtmlForm form = page.getFormByName("username");
 		form.getInputByName("username").setValueAttribute(username);
 		return form.getButtonByName("button").click();
 	}
 
 	HtmlPage changePassword(HtmlPage page, String oldPassword, String newPassword, String verify) throws java.io.IOException {
-		page = page.getAnchorByText(getMessage("update_yours")).click();
+		page = webClient.getPage("http://localhost:8080/update");
 		HtmlForm form = page.getFormByName("password");
 		form.getInputByName("oldPassword").setValueAttribute(oldPassword);
 		form.getInputByName("newPassword").setValueAttribute(newPassword);
@@ -186,7 +186,8 @@ public class AccountUpdateTests extends AbstractHtmlTests {
 		HtmlPage page;
 		page = signup("tester", "secret");
 		try {
-			page = page.getAnchorByText(getMessage("update_yours")).click();
+			page = page.getAnchorByText("tester").click();
+			//page = webClient.getPage("http://localhost:8080/update");
 			HtmlForm form = page.getFormByName("description");
 			form.getTextAreaByName("description").setText("Hello!");
 			page = form.getButtonByName("button").click();

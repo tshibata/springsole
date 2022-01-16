@@ -59,12 +59,12 @@ public abstract class AbstractHtmlTests {
 	}
 
 	HtmlPage signout(HtmlPage page) throws java.io.IOException {
-		HtmlForm form = page.getFormByName("signout");
+		HtmlForm form = page.getFormByName("auth");
 		return form.getButtonByName("button").click();
 	}
 
 	HtmlPage delete(HtmlPage page, String password) throws java.io.IOException {
-		page = page.getAnchorByText(getMessage("update_yours")).click();
+		page = webClient.getPage("http://localhost:8080/update");
 		HtmlForm form = page.getFormByName("delete");
 		form.getInputByName("password").setValueAttribute(password);
 		return form.getButtonByName("button").click();

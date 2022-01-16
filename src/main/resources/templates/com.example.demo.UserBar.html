@@ -1,16 +1,14 @@
     <div class="bar">
       <div class="none">
         <a href="/accounts" th:text="#{accounts}"></a>
-        /
-        <a href="/update" th:text="#{update_yours}"></a>
       </div>
       <div class="auto">
       </div>
       <div class="auto">
       </div>
       <div class="none">
-        <form class="signout" name="signout" action="/signout" method="post">
-          <th:block th:text="${bar.username}"></th:block>
+        <form class="auth" name="auth" action="/signout" method="post">
+          <a href="/update" th:text="${bar.username}"></a>
           <button name="button" value="signout" th:text="#{sign_out}"></button>
         </form>
       </div>
