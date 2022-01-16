@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.x7th.sole;
 
 import java.net.URL;
 import java.net.MalformedURLException;

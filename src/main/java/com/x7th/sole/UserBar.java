@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.x7th.sole;
 
 public class UserBar extends Bar {
 

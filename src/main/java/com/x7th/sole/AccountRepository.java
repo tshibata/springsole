@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.x7th.sole;
 
 import java.util.*;
 import org.springframework.data.domain.Page;

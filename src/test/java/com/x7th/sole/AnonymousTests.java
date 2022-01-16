@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.x7th.sole;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.WebClient;

@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.x7th.sole;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
