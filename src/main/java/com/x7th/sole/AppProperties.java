@@ -3,6 +3,7 @@ package com.x7th.sole;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -17,14 +18,26 @@ public class AppProperties {
 	@Autowired
 	MessageSource messageSource;
 
-	private boolean openEntry = false;
+	private int openEntryInterval = - 1;
 
-	public void setOpenEntry(boolean value) {
-		openEntry = value;
+	private LocalDateTime lastEntry = LocalDateTime.now();
+
+	public void setOpenEntryInterval(int value) {
+		openEntryInterval = value;
+	}
+
+	public void updateOpenEntry() {
+		lastEntry = LocalDateTime.now();
 	}
 
 	public boolean getOpenEntry() {
-		return openEntry;
+		if (openEntryInterval < 0) {
+			return false;
+		}
+		if (LocalDateTime.now().isBefore(lastEntry.plusSeconds(openEntryInterval))) {
+			return false;
+		}
+		return true;
 	}
 
 	private long adminId = 1;

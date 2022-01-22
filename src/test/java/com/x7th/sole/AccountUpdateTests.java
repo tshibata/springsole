@@ -13,7 +13,7 @@ public class AccountUpdateTests extends AbstractHtmlTests {
 
 	@BeforeEach
 	void setup() {
-		properties.setOpenEntry(true);
+		properties.setOpenEntryInterval(0);
 	}
 
 	HtmlPage changeName(HtmlPage page, String username) throws java.io.IOException {

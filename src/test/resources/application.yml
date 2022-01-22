@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:h2:mem:h2
 app:
-  open-entry: true
+  open-entry-interval: 0
   admin-id: 1
   prohibited-patterns:
     username:

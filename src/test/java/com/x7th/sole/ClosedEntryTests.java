@@ -14,7 +14,7 @@ public class ClosedEntryTests extends AbstractHtmlTests {
 
 	@BeforeEach
 	void setup() {
-		properties.setOpenEntry(false);
+		properties.setOpenEntryInterval(- 1);
 	}
 
 	@Test

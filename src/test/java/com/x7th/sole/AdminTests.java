@@ -14,9 +14,9 @@ public class AdminTests extends AbstractHtmlTests {
 
 	@BeforeEach
 	void setup() throws java.io.IOException {
-		properties.setOpenEntry(true);
+		properties.setOpenEntryInterval(0);
 		signin("admin", "admin");
-		properties.setOpenEntry(false);
+		properties.setOpenEntryInterval(- 1);
 	}
 
 	HtmlPage register(String username, String password, String verify) throws java.io.IOException {

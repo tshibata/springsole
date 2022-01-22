@@ -14,7 +14,7 @@ public class AnonymousTests extends AbstractHtmlTests {
 
 	@BeforeEach
 	void setup() {
-		properties.setOpenEntry(true);
+		properties.setOpenEntryInterval(0);
 	}
 
 	@Test

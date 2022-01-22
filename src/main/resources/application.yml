@@ -15,7 +15,7 @@ spring:
   session:
     store-type: jdbc
 app:
-  open-entry: true
+  open-entry-interval: 60
   admin-id: 1
   prohibited-patterns:
     username:

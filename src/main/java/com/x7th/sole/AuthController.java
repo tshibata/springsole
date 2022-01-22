@@ -98,6 +98,7 @@ public class AuthController {
 		if (account == null) {
 			return "redirect:/signup";
 		}
+		properties.updateOpenEntry();
 		session.setAttribute("account_id", account.id);
 		return "redirect:/update";
 	}
