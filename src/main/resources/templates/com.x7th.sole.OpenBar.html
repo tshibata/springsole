@@ -1,14 +1,17 @@
     <div class="bar">
-      <div class="none">
-        <a href="/accounts" th:text="#{accounts}"></a>
+      <div class="grow">
+        <div class="fit">
+          <a href="/accounts" th:text="#{accounts}"></a>
+        </div>
+        <div class="grow">
+        </div>
       </div>
-      <div class="auto">
-      </div>
-      <div class="auto">
-      </div>
-      <div class="none">
-        <a href="/signup" th:text="#{sign_up}"></a>
-        /
-        <a href="/signin" th:text="#{sign_in}"></a>
+      <div class="grow">
+        <div class="grow">
+        </div>
+        <div class="fit">
+          <a href="/signup" th:text="#{sign_up}"></a>
+          <a href="/signin" th:text="#{sign_in}"></a>
+        </div>
       </div>
     </div>

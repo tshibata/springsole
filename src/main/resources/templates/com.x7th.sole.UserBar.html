@@ -1,15 +1,19 @@
     <div class="bar">
-      <div class="none">
-        <a href="/accounts" th:text="#{accounts}"></a>
+      <div class="grow">
+        <div class="fit">
+          <a href="/accounts" th:text="#{accounts}"></a>
+        </div>
+        <div class="grow">
+        </div>
       </div>
-      <div class="auto">
-      </div>
-      <div class="auto">
-      </div>
-      <div class="none">
-        <form class="auth" name="auth" action="/signout" method="post">
+      <div class="grow">
+        <div class="grow">
+        </div>
+        <div class="fit">
           <a href="/update" th:text="${bar.username}"></a>
-          <button name="button" value="signout" th:text="#{sign_out}"></button>
-        </form>
+          <form class="auth" name="auth" action="/signout" method="post">
+            <button name="button" value="signout" th:text="#{sign_out}"></button>
+          </form>
+        </div>
       </div>
     </div>
