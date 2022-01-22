@@ -25,28 +25,19 @@ public class AccountController {
 	@Autowired
 	AppProperties properties;
 
+	@Autowired
+	PageNavigator pageNavigator;
+
 	Parser parser = Parser.builder().build();
 
 	HtmlRenderer renderer = HtmlRenderer.builder().build();
-
-	static SortedSet pages(Page current) { // FIXME rename
-		SortedSet set = new TreeSet<Integer>();
-		if (! current.isEmpty()) {
-			set.add(0);
-			set.add(current.previousOrFirstPageable().getPageNumber());
-			set.add(current.getNumber());
-			set.add(current.nextOrLastPageable().getPageNumber());
-			set.add(current.getTotalPages() - 1);
-		}
-		return set;
-	}
 
 	@RequestMapping(value = "/accounts", method = RequestMethod.GET)
 	public String accounts(Model model, @RequestParam(name = "p", defaultValue = "0") int p) {
 		Pageable pageable = PageRequest.of(p, 2);
 		Page<AccountEntity> page = accountService.getAll(true, pageable);
 		model.addAttribute("accounts", page);
-		model.addAttribute("pages", pages(page));
+		model.addAttribute("pages", pageNavigator.navigation(page));
 		return "account_list";
 	}
 
@@ -62,7 +53,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String index(Model model) throws AnonymousException {
+	public String update(Model model) throws AnonymousException {
 		AccountEntity account = accountService.getCurrent();
 		model.addAttribute("account", account);
 		return "account_update";
@@ -77,19 +68,19 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/validity", method = RequestMethod.GET)
-	public String admin(Model model, @RequestParam(name = "p", defaultValue = "0") int p) throws AnonymousException, ForbiddenException {
+	public String validity(Model model, @RequestParam(name = "p", defaultValue = "0") int p) throws AnonymousException, ForbiddenException {
 		Pageable pageable = PageRequest.of(p, 2);
 		if (! accountService.isAdmin(accountService.getCurrent())) {
 			throw new ForbiddenException();
 		}
 		Page<AccountEntity> page = accountService.getAll(pageable);
 		model.addAttribute("accounts", page);
-		model.addAttribute("pages", pages(page));  // FIXME rename
+		model.addAttribute("pages", pageNavigator.navigation(page));
 		return "validity_list";
 	}
 
 	@RequestMapping(value = "/validity/{id}", method = RequestMethod.GET)
-	public String admin(Model model, @PathVariable("id") long id) throws AnonymousException, ForbiddenException, NotFoundException {
+	public String validity(Model model, @PathVariable("id") long id) throws AnonymousException, ForbiddenException, NotFoundException {
 		if (! accountService.isAdmin(accountService.getCurrent())) {
 			throw new ForbiddenException();
 		}
@@ -100,7 +91,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/validity/{id}", method = RequestMethod.POST)
-	public String admin(Model model, @PathVariable("id") long id, @RequestParam("valid") Optional<Boolean> valid) throws AnonymousException, ForbiddenException, NotFoundException {
+	public String validity(Model model, @PathVariable("id") long id, @RequestParam("valid") Optional<Boolean> valid) throws AnonymousException, ForbiddenException, NotFoundException {
 		if (! accountService.isAdmin(accountService.getCurrent())) {
 			throw new ForbiddenException();
 		}
