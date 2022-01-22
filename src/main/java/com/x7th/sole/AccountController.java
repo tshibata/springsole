@@ -2,9 +2,9 @@ package com.x7th.sole;
 
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,7 +47,8 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/accounts", method = RequestMethod.GET)
-	public String accounts(Model model, @PageableDefault(2) Pageable pageable) throws AnonymousException {
+	public String accounts(Model model, @RequestParam(name = "p", defaultValue = "0") int p) throws AnonymousException {
+		Pageable pageable = PageRequest.of(p, 2);
 		Page<AccountEntity> page = accountService.getAll(true, pageable);
 		model.addAttribute("accounts", page);
 		model.addAttribute("pages", pages(page));
@@ -81,7 +82,8 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/validity", method = RequestMethod.GET)
-	public String admin(Model model, @PageableDefault(2) Pageable pageable) throws AnonymousException, ForbiddenException {
+	public String admin(Model model, @RequestParam(name = "p", defaultValue = "0") int p) throws AnonymousException, ForbiddenException {
+		Pageable pageable = PageRequest.of(p, 2);
 		if (! accountService.isAdmin(accountService.getCurrent())) {
 			throw new ForbiddenException();
 		}
