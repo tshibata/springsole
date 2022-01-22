@@ -11,10 +11,10 @@ import org.springframework.web.servlet.handler.MappedInterceptor;
 
 @SpringBootApplication
 @EnableScheduling
-public class DemoApplication {
+public class SoleApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(SoleApplication.class, args);
 	}
 
 	@Bean
