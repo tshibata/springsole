@@ -41,11 +41,6 @@ public class AccountController {
 		return set;
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String root(Model model) throws AnonymousException {
-		return "redirect:/accounts";
-	}
-
 	@RequestMapping(value = "/accounts", method = RequestMethod.GET)
 	public String accounts(Model model, @RequestParam(name = "p", defaultValue = "0") int p) {
 		Pageable pageable = PageRequest.of(p, 2);
