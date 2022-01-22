@@ -47,7 +47,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/accounts", method = RequestMethod.GET)
-	public String accounts(Model model, @RequestParam(name = "p", defaultValue = "0") int p) throws AnonymousException {
+	public String accounts(Model model, @RequestParam(name = "p", defaultValue = "0") int p) {
 		Pageable pageable = PageRequest.of(p, 2);
 		Page<AccountEntity> page = accountService.getAll(true, pageable);
 		model.addAttribute("accounts", page);
@@ -56,7 +56,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/accounts/{username}", method = RequestMethod.GET)
-	public String accounts(Model model, @PathVariable("username") String username) throws AnonymousException, NotFoundException {
+	public String accounts(Model model, @PathVariable("username") String username) throws NotFoundException {
 		AccountEntity account = accountService.get(username).orElseThrow(NotFoundException::new);
 		if (! account.valid) {
 			throw new NotFoundException();

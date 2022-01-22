@@ -2,8 +2,8 @@ spring:
   datasource:
     url: jdbc:h2:mem:h2
 app:
-  openEntry: true
-  adminId: 1
+  open-entry: true
+  admin-id: 1
   prohibited-patterns:
     username:
       1_too_short_username: "^.{0,4}$"
