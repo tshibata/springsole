@@ -22,7 +22,7 @@
         <th:block th:text="${page + 1}"></th:block>
       </th:block>
       <th:block th:if="${accounts.getNumber() != page}">
-        <a th:href="'/accounts/?p=' + ${page}" th:text="${page + 1}"></a>
+        <a th:href="'/accounts?p=' + ${page}" th:text="${page + 1}"></a>
       </th:block>
     </th:block>
   </body>

@@ -10,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.handler.MappedInterceptor;
 
 @SpringBootApplication
-@EnableScheduling
 public class SoleApplication {
 
 	public static void main(String[] args) {
