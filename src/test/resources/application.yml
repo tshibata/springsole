@@ -1,6 +1,8 @@
 spring:
   datasource:
     url: jdbc:h2:mem:h2
+  session:
+    store-type: jdbc
 app:
   open-entry-interval: 0
   admin-id: 1
