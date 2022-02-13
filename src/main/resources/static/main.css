@@ -1,3 +1,16 @@
+button, input, select {
+	font-family: inherit;
+	font-size: inherit;
+}
+textarea {
+	width: 100%;
+	height: 10ex;
+	resize: none;
+	overflow-x: wrap;
+	overflow-y: scroll;
+	font-family: inherit;
+	font-size: inherit;
+}
 div.bar {
 	display: flex;
 	flex-flow: row wrap;
@@ -5,8 +18,8 @@ div.bar {
 	border-radius: 0;
 	border-width: 1px;
 	background-color: white;
-	padding: 0.5rem;
-	margin: 0.5rem;
+	padding: 0.5em;
+	margin: 0.5em;
 }
 div.grow {
 	display: flex;
@@ -25,21 +38,15 @@ div.fit {
 }
 form {
 	border-style: solid;
-	border-radius: 0.5rem;
+	border-radius: 0.5em;
 	border-width: 1px;
 	background-color: white;
-	padding: 0.5rem;
-	margin: 0.5rem;
+	padding: 0.5em;
+	margin: 0.5em;
 }
 form.auth {
 	border-style: none;
 	padding: 0;
 	margin: 0;
 }
-textarea {
-	width: 100%;
-	height: 10em;
-	resize: none;
-	overflow-x: wrap;
-	overflow-y: scroll;
-}
+
