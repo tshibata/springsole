@@ -14,7 +14,7 @@
       </li>
       </th:block>
     </ul>
-    <th:block th:each="page: ${pages}">
+    <th:block th:if="${page}" th:each="page: ${pages}">
       <th:block th:if="${page != 0 && ! pages.contains(page - 1)}">
       ...
       </th:block>
