@@ -20,10 +20,10 @@ public class AccountService {
 	@Autowired
 	HttpSession session;
 
+	@Autowired
 	AccountRepository repository;
 
-	AccountService(AccountRepository repository) {
-		this.repository = repository;
+	AccountService() {
 	}
 
 	public AccountEntity post(AccountEntity entity) {
@@ -76,5 +76,10 @@ public class AccountService {
 
 	public boolean canSignin(AccountEntity account) {
 		return account.valid || isAdmin(account);
+	}
+
+	public void setValid(AccountEntity account, boolean valid) {
+		account.valid = valid;
+		repository.save(account);
 	}
 }

@@ -20,10 +20,10 @@ import org.commonmark.renderer.html.HtmlRenderer;
 public class AccountController {
 
 	@Autowired
-	AccountService accountService;
+	AppProperties properties;
 
 	@Autowired
-	AppProperties properties;
+	AccountService accountService;
 
 	@Autowired
 	PageNavigator pageNavigator;
@@ -96,8 +96,7 @@ public class AccountController {
 			throw new ForbiddenException();
 		}
 		AccountEntity account = accountService.get(id).orElseThrow(NotFoundException::new);
-		account.valid = valid.orElse(false);
-		accountService.post(account);
+		accountService.setValid(account, valid.orElse(false));
 		return "redirect:/validity";
 	}
 }
