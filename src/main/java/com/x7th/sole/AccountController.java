@@ -42,7 +42,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/accounts/{username}", method = RequestMethod.GET)
-	public String accounts(Model model, @PathVariable("username") String username) throws NotFoundException {
+	public String accounts(Model model, @PathVariable("username") String username) {
 		AccountEntity account = accountService.get(username).orElseThrow(NotFoundException::new);
 		if (! account.valid) {
 			throw new NotFoundException();
@@ -80,7 +80,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/validity/{id}", method = RequestMethod.GET)
-	public String validity(Model model, @PathVariable("id") long id) throws AnonymousException, ForbiddenException, NotFoundException {
+	public String validity(Model model, @PathVariable("id") long id) throws AnonymousException, ForbiddenException {
 		if (! accountService.isAdmin(accountService.getCurrent())) {
 			throw new ForbiddenException();
 		}
@@ -91,7 +91,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/validity/{id}", method = RequestMethod.POST)
-	public String validity(Model model, @PathVariable("id") long id, @RequestParam("valid") Optional<Boolean> valid) throws AnonymousException, ForbiddenException, NotFoundException {
+	public String validity(Model model, @PathVariable("id") long id, @RequestParam("valid") Optional<Boolean> valid) throws AnonymousException, ForbiddenException {
 		if (! accountService.isAdmin(accountService.getCurrent())) {
 			throw new ForbiddenException();
 		}

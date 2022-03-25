@@ -1,5 +1,5 @@
 package com.x7th.sole;
 
-public class NotFoundException extends Exception {
+public class NotFoundException extends RuntimeException {
 }
 

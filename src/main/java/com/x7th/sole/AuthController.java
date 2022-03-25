@@ -134,7 +134,7 @@ public class AuthController {
 	public String signin(RedirectAttributes attr, @RequestParam("username")String username, @RequestParam("password")String password) {
 		Optional<AccountEntity> account = accountService.get(username).filter(a -> accountService.canSignin(a) && passwordEncoder.matches(password, a.password));
 		if (account.isPresent()) {
-			session.setAttribute("account_id", account.orElseThrow(RuntimeException::new).id);
+			session.setAttribute("account_id", account.orElseThrow(NotFoundException::new).id);
 			return "redirect:/update";
 		} else {
 			String message = messageSource.getMessage("authentication_failed", new String[] {username}, LocaleContextHolder.getLocale());
