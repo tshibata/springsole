@@ -22,8 +22,15 @@ public abstract class AbstractHtmlTests {
 
 	WebClient webClient; 
 
+	static String adminPassword;
+
 	@BeforeEach
-	void init() {
+	void init() throws java.io.IOException {
+		if (adminPassword == null) {
+			webClient = MockMvcWebClientBuilder.webAppContextSetup(webApplicationContext).build();
+			signup("admin", "admin");
+			adminPassword = "admin";			
+		}
 		webClient = MockMvcWebClientBuilder.webAppContextSetup(webApplicationContext).build();
 	}
 
