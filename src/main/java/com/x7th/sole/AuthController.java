@@ -130,7 +130,7 @@ public class AuthController {
 		return "signin";
 	}
 
-	@RequestMapping(value = "/signin", method = RequestMethod.POST)
+	@RequestMapping(value = "/tight/signin", method = RequestMethod.POST)
 	public String signin(RedirectAttributes attr, @RequestParam("username")String username, @RequestParam("password")String password) {
 		Optional<AccountEntity> account = accountService.get(username).filter(a -> accountService.canSignin(a) && passwordEncoder.matches(password, a.password));
 		if (account.isPresent()) {
