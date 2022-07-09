@@ -11,6 +11,12 @@ textarea {
 	font-family: inherit;
 	font-size: inherit;
 }
+a.page {
+	padding: 0.125rem;
+}
+span.page {
+	padding: 0.125rem;
+}
 div.bar {
 	display: flex;
 	flex-flow: row wrap;
