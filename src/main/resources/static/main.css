@@ -11,12 +11,6 @@ textarea {
 	font-family: inherit;
 	font-size: inherit;
 }
-a.page {
-	padding: 0.125rem;
-}
-span.page {
-	padding: 0.125rem;
-}
 div.bar {
 	display: flex;
 	flex-flow: row wrap;
@@ -55,4 +49,10 @@ form.auth {
 	padding: 0;
 	margin: 0;
 }
-
+div.pages {
+	display: flex;
+	flex-flow: row wrap;
+}
+div.pages div {
+	min-width: 1rem;
+}

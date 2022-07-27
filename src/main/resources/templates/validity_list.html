@@ -14,16 +14,20 @@
       </li>
       </th:block>
     </ul>
-    <th:block th:if="1 < ${pages.size()}" th:each="page: ${pages}">
+    <div class="pages">
+      <th:block th:if="1 < ${pages.size()}" th:each="page: ${pages}">
+      <div>
       <th:block th:if="${page != 0 && ! pages.contains(page - 1)}">
       ...
       </th:block>
       <th:block th:if="${accounts.getNumber() == page}">
-        <span class="page" th:text="${page + 1}"></span>
+        <span th:text="${page + 1}"></span>
       </th:block>
       <th:block th:if="${accounts.getNumber() != page}">
-        <a class="page" th:href="'/validity?p=' + ${page}" th:text="${page + 1}"></a>
+        <a th:href="'/validity?p=' + ${page}" th:text="${page + 1}"></a>
       </th:block>
-    </th:block>
+      </div>
+      </th:block>
+    </div>
   </body>
 </html>
