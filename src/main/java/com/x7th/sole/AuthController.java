@@ -1,5 +1,7 @@
 package com.x7th.sole;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Optional;
 import java.sql.SQLException;
 import javax.servlet.http.HttpSession;
@@ -126,20 +128,28 @@ public class AuthController {
 	}
 
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
-	public String signin() {
+	public String signin(Model model, @RequestParam(value = "from", defaultValue = "/") String from) {
+		model.addAttribute("from", from);
 		return "signin";
 	}
 
 	@RequestMapping(value = "/tight/signin", method = RequestMethod.POST)
-	public String signin(RedirectAttributes attr, @RequestParam("username")String username, @RequestParam("password")String password) {
+	public String signin(RedirectAttributes attr, @RequestParam("username")String username, @RequestParam("password")String password, @RequestParam("from") String from) {
 		Optional<AccountEntity> account = accountService.get(username).filter(a -> accountService.canSignin(a) && passwordEncoder.matches(password, a.password));
 		if (account.isPresent()) {
 			session.setAttribute("account_id", account.orElseThrow(NotFoundException::new).id);
+			try {
+				String decoded = URLDecoder.decode(from, "UTF-8");
+				if (decoded.startsWith("/")) {
+					return "redirect:" + decoded;
+				}
+			} catch (UnsupportedEncodingException ex) {
+			}
 			return "redirect:/update";
 		} else {
 			String message = messageSource.getMessage("authentication_failed", new String[] {username}, LocaleContextHolder.getLocale());
 			attr.addFlashAttribute("err", message);
-			return "redirect:/signin";
+			return "redirect:/signin" + (from == null ? "" : "?from=" + from);
 		}
 	}
 

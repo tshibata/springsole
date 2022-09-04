@@ -1,5 +1,9 @@
 package com.x7th.sole;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -20,6 +24,9 @@ public class Fallback {
 	@Autowired
 	AccountService accountService;
 
+	@Autowired
+	HttpServletRequest request;
+
 	@ModelAttribute("bar")
 	public Bar bar() {
 		AccountEntity account = accountService.getCurrentOrNull();
@@ -39,7 +46,14 @@ public class Fallback {
 	@ExceptionHandler(AnonymousException.class)
 	public String handler(AnonymousException ex, RedirectAttributes attr) {
 		attr.addFlashAttribute("err", "You need to sign in.");
-		return "redirect:/signin";
+		String path = request.getRequestURI();
+		String query = request.getQueryString();
+		String from = path + (query == null ? "" : "?" + query);
+		try {
+			return "redirect:/signin?from=" + URLEncoder.encode(from, "UTF-8");
+		} catch (UnsupportedEncodingException ueex) {
+			return "redirect:/signin?from=";
+		}
 	}
 
 	@ExceptionHandler(NotFoundException.class)

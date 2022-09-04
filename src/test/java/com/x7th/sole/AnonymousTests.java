@@ -40,4 +40,47 @@ public class AnonymousTests extends AbstractHtmlTests {
 		page = webClient.getPage("http://localhost:8080/update");
 		Assertions.assertEquals(page.getTitleText(), "Sign in");
 	}
+
+	@Test
+	void beRedirectedAfterSignin() throws java.io.IOException {
+		HtmlPage page;
+		page = signup("tester", "secret");
+		try {
+			signout(page);
+			page = webClient.getPage("http://localhost:8080/update");
+			Assertions.assertEquals(page.getTitleText(), "Sign in");
+			HtmlForm form = page.getFormByName("signin");
+			form.getInputByName("username").setValueAttribute("tester");
+			form.getInputByName("password").setValueAttribute("secret");
+			page = form.getButtonByName("button").click();
+			// getDocumentURI() is not yet implemented.
+			// Assertions.assertEquals(page.getDocumentURI(), "http://localhost:8080/update");
+			Assertions.assertEquals(page.getTitleText(), "Your account");
+		} finally {
+			delete(page, "secret");
+		}
+	}
+
+	@Test
+	void beRedirectedAfterRetriedSignin() throws java.io.IOException {
+		HtmlPage page;
+		page = signup("tester", "secret");
+		try {
+			signout(page);
+			page = webClient.getPage("http://localhost:8080/update");
+			Assertions.assertEquals(page.getTitleText(), "Sign in");
+			HtmlForm form = page.getFormByName("signin");
+			form.getInputByName("username").setValueAttribute("wrong");
+			form.getInputByName("password").setValueAttribute("wrong");
+			page = form.getButtonByName("button").click();
+			form.getInputByName("username").setValueAttribute("tester");
+			form.getInputByName("password").setValueAttribute("secret");
+			page = form.getButtonByName("button").click();
+			// getDocumentURI() is not yet implemented.
+			// Assertions.assertEquals(page.getDocumentURI(), "http://localhost:8080/update");
+			Assertions.assertEquals(page.getTitleText(), "Your account");
+		} finally {
+			delete(page, "secret");
+		}
+	}
 }

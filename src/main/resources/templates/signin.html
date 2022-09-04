@@ -10,6 +10,7 @@
     <div th:if="${err}" th:text="${err}">
     </div>
     <form name="signin" method="post" action="/tight/signin">
+      <input type="hidden" name="from" th:value="${from}"></input>
       <p>
         <label for="username">Username:</label>
         <input type="text" name="username" required="required" />
