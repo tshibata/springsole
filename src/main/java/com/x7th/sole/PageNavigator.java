@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class PageNavigator {
 
 	SortedSet navigation(Page current) {
-		SortedSet set = new TreeSet<Integer>();
+		SortedSet<Integer> set = new TreeSet<Integer>();
 		if (! current.isEmpty()) {
 			set.add(0);
 			set.add(current.previousOrFirstPageable().getPageNumber());
