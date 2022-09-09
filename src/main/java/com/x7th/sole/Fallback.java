@@ -1,6 +1,8 @@
 package com.x7th.sole;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLEncoder;
 import javax.servlet.http.HttpServletRequest;
 
@@ -46,14 +48,23 @@ public class Fallback {
 	@ExceptionHandler(AnonymousException.class)
 	public String handler(AnonymousException ex, RedirectAttributes attr) {
 		attr.addFlashAttribute("err", "You need to sign in.");
-		String path = request.getRequestURI();
-		String query = request.getQueryString();
-		String from = path + (query == null ? "" : "?" + query);
+		String path;
+		String query;
 		try {
+			if (request.getMethod().equals("GET")) {
+				path = request.getRequestURI();
+				query = request.getQueryString();
+			} else {
+				URL url = new URL(request.getHeader("Referer"));
+				path = url.getPath();
+				query = url.getQuery();
+			}
+			String from = path + (query == null ? "" : "?" + query);
 			return "redirect:/signin?from=" + URLEncoder.encode(from, "UTF-8");
 		} catch (UnsupportedEncodingException ueex) {
-			return "redirect:/signin?from=";
+		} catch (MalformedURLException mux) {
 		}
+		return "redirect:/signin?from=/";
 	}
 
 	@ExceptionHandler(NotFoundException.class)
