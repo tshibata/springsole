@@ -22,4 +22,17 @@ public class AccountEntity {
 
 	@Column(nullable = false)
 	public boolean valid;
+
+	@Override
+	public int hashCode() {
+		return (int) id;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof AccountEntity e) {
+			return id == e.id;
+		}
+		return false;
+	}
 }
