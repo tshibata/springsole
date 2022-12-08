@@ -1,7 +1,7 @@
 package com.x7th.sole;
 
 import java.util.*;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "accounts")
