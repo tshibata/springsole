@@ -7,8 +7,6 @@
   <body>
 <th:block th:replace="${bar.getClass().getName()}"></th:block>
     <h1>Sign in</h1>
-    <div th:if="${err}" th:text="${err}">
-    </div>
     <form name="signin" method="post" action="/tight/signin">
       <input type="hidden" name="from" th:value="${from}"></input>
       <p>
