@@ -51,7 +51,7 @@ public class AdminTests extends AbstractHtmlTests {
 		page = register("invited", "invited");
 		signout(page);
 		page = signin("invited", "invited");
-		delete(page, "invited");
+		delete("invited");
 	}
 
 	@Test
@@ -92,7 +92,7 @@ public class AdminTests extends AbstractHtmlTests {
 			}
 		} finally {
 			page = signin("invited", "invited");
-			delete(page, "invited");
+			delete("invited");
 		}
 	}
 }

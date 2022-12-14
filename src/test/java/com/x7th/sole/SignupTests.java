@@ -29,7 +29,7 @@ public class SignupTests extends AbstractHtmlTests {
 			Assertions.assertEquals("Your account", page.getTitleText());
 			Assertions.assertTrue(page.getVisibleText().contains("abcde"));
 		} finally {
-			delete(page, "tester");
+			delete("tester");
 		}
 	}
 
@@ -47,7 +47,7 @@ public class SignupTests extends AbstractHtmlTests {
 			Assertions.assertEquals("Your account", page.getTitleText());
 			Assertions.assertTrue(page.getVisibleText().contains("123456789012345"));
 		} finally {
-			delete(page, "tester");
+			delete("tester");
 		}
 	}
 
@@ -73,7 +73,7 @@ public class SignupTests extends AbstractHtmlTests {
 			Assertions.assertEquals("Your account", page.getTitleText());
 			Assertions.assertTrue(page.getVisibleText().contains("tester"));
 		} finally {
-			delete(page, "abcde");
+			delete("abcde");
 		}
 	}
 
@@ -91,7 +91,7 @@ public class SignupTests extends AbstractHtmlTests {
 			Assertions.assertEquals("Your account", page.getTitleText());
 			Assertions.assertTrue(page.getVisibleText().contains("tester"));
 		} finally {
-			delete(page, "123456789012345");
+			delete("123456789012345");
 		}
 	}
 

@@ -33,7 +33,7 @@ public class IntervalEntryTests extends AbstractHtmlTests {
 			}
 		} finally {
 			page = signin("tester", "secret");
-			delete(page, "secret");
+			delete("secret");
 		}
 	}
 
@@ -50,11 +50,11 @@ public class IntervalEntryTests extends AbstractHtmlTests {
 				Assertions.assertEquals("Your account", page.getTitleText());
 				Assertions.assertTrue(page.getVisibleText().contains("tester2"));
 			} finally {
-				delete(page, "secret");
+				delete("secret");
 			}
 		} finally {
 			page = signin("tester", "secret");
-			delete(page, "secret");
+			delete("secret");
 		}
 	}
 }

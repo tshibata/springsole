@@ -57,7 +57,7 @@ public class AnonymousTests extends AbstractHtmlTests {
 			// Assertions.assertEquals(page.getDocumentURI(), "http://localhost:8080/update");
 			Assertions.assertEquals(page.getTitleText(), "Your account");
 		} finally {
-			delete(page, "secret");
+			delete("secret");
 		}
 	}
 
@@ -80,7 +80,7 @@ public class AnonymousTests extends AbstractHtmlTests {
 			// Assertions.assertEquals(page.getDocumentURI(), "http://localhost:8080/update");
 			Assertions.assertEquals(page.getTitleText(), "Your account");
 		} finally {
-			delete(page, "secret");
+			delete("secret");
 		}
 	}
 }

@@ -50,7 +50,7 @@ public class AccountUpdateTests extends AbstractHtmlTests {
 				Assertions.assertEquals(404, ex.getStatusCode());
 			}
 		} finally {
-			delete(page, "secret");
+			delete("secret");
 		}
 	}
 
@@ -68,7 +68,7 @@ public class AccountUpdateTests extends AbstractHtmlTests {
 				Assertions.assertEquals(404, ex.getStatusCode());
 			}
 		} finally {
-			delete(page, "secret");
+			delete("secret");
 		}
 	}
 
@@ -86,7 +86,7 @@ public class AccountUpdateTests extends AbstractHtmlTests {
 				Assertions.assertEquals(404, ex.getStatusCode());
 			}
 		} finally {
-			delete(page, "secret");
+			delete("secret");
 		}
 	}
 
@@ -98,7 +98,7 @@ public class AccountUpdateTests extends AbstractHtmlTests {
 			page = changeName(page, "abcd");
 			page = webClient.getPage("http://localhost:8080/accounts/tester");
 		} finally {
-			delete(page, "secret");
+			delete("secret");
 		}
 	}
 
@@ -110,7 +110,7 @@ public class AccountUpdateTests extends AbstractHtmlTests {
 			page = changeName(page, "1234567890123456");
 			page = webClient.getPage("http://localhost:8080/accounts/tester");
 		} finally {
-			delete(page, "secret");
+			delete("secret");
 		}
 	}
 
@@ -122,7 +122,7 @@ public class AccountUpdateTests extends AbstractHtmlTests {
 			page = changeName(page, "admin");
 			page = webClient.getPage("http://localhost:8080/accounts/tester");
 		} finally {
-			delete(page, "secret");
+			delete("secret");
 		}
 	}
 
@@ -133,7 +133,7 @@ public class AccountUpdateTests extends AbstractHtmlTests {
 		try {
 			page = changePassword(page, "secret", "abcd");
 		} finally {
-			delete(page, "secret");
+			delete("secret");
 		}
 	}
 
@@ -144,7 +144,7 @@ public class AccountUpdateTests extends AbstractHtmlTests {
 		try {
 			page = changePassword(page, "secret", "abcde");
 		} finally {
-			delete(page, "abcde");
+			delete("abcde");
 		}
 	}
 
@@ -155,7 +155,7 @@ public class AccountUpdateTests extends AbstractHtmlTests {
 		try {
 			page = changePassword(page, "secret", "1234567890123456");
 		} finally {
-			delete(page, "secret");
+			delete("secret");
 		}
 	}
 
@@ -166,7 +166,7 @@ public class AccountUpdateTests extends AbstractHtmlTests {
 		try {
 			page = changePassword(page, "secret", "123456789012345");
 		} finally {
-			delete(page, "123456789012345");
+			delete("123456789012345");
 		}
 	}
 
@@ -177,7 +177,7 @@ public class AccountUpdateTests extends AbstractHtmlTests {
 		try {
 			page = changePassword(page, "quatsch", "tonteria");
 		} finally {
-			delete(page, "secret");
+			delete("secret");
 		}
 	}
 
@@ -193,7 +193,7 @@ public class AccountUpdateTests extends AbstractHtmlTests {
 			page = form.getButtonByName("button").click();
 			Assertions.assertTrue(page.getVisibleText().contains("Hello!"));
 		} finally {
-			delete(page, "secret");
+			delete("secret");
 		}
 	}
 }

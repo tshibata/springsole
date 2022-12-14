@@ -70,7 +70,8 @@ public abstract class AbstractHtmlTests {
 		return form.getButtonByName("button").click();
 	}
 
-	HtmlPage delete(HtmlPage page, String password) throws java.io.IOException {
+	HtmlPage delete(String password) throws java.io.IOException {
+		HtmlPage page;
 		page = webClient.getPage("http://localhost:8080/update");
 		HtmlForm form = page.getFormByName("delete");
 		form.getInputByName("password").setValueAttribute(password);
