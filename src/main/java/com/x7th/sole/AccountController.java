@@ -60,7 +60,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/update/description", method = RequestMethod.POST)
-	public String updateDescription(/*Model model, */@RequestParam("description") String description) throws AnonymousException {
+	public String updateDescription(@RequestParam("description") String description) throws AnonymousException {
 		AccountEntity account = accountService.getCurrent();
 		account.description = description;
 		accountService.post(account);
@@ -91,7 +91,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/validity/{id}", method = RequestMethod.POST)
-	public String validity(Model model, @PathVariable("id") long id, @RequestParam("valid") Optional<Boolean> valid) throws AnonymousException, ForbiddenException {
+	public String validity(@PathVariable("id") long id, @RequestParam("valid") Optional<Boolean> valid) throws AnonymousException, ForbiddenException {
 		if (! accountService.isAdmin(accountService.getCurrent())) {
 			throw new ForbiddenException();
 		}

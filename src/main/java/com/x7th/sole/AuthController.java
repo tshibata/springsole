@@ -38,7 +38,7 @@ public class AuthController {
 	PasswordEncoder passwordEncoder;
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
-	public String signup(Model model) throws ForbiddenException {
+	public String signup() throws ForbiddenException {
 		if (! properties.getOpenEntry()) {
 			throw new ForbiddenException();
 		}
@@ -154,7 +154,7 @@ public class AuthController {
 	}
 
 	@RequestMapping(value = "/signout", method = RequestMethod.POST)
-	public String signout(/*Model model*/) {
+	public String signout() {
 		session.setAttribute("account_id", null);
 		return "redirect:/signin";
 	}
