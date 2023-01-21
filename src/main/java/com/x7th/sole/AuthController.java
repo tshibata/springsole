@@ -87,7 +87,6 @@ public class AuthController {
 			attr.addFlashAttribute("err", message);
 			return null;
 		}
-		accountService.post(account);
 		return account;
 	}
 
