@@ -55,4 +55,5 @@ div.pages {
 }
 div.pages div {
 	min-width: 1rem;
+	text-align: center;
 }

@@ -16,16 +16,14 @@
     </ul>
     <div class="pages">
       <th:block th:if="1 < ${pages.size()}" th:each="page: ${pages}">
-      <div>
-      <th:block th:if="${page != 0 && ! pages.contains(page - 1)}">
+      <div th:if="${page != 0 && ! pages.contains(page - 1)}">
       ...
-      </th:block>
-      <th:block th:if="${accounts.getNumber() == page}">
+      </div>
+      <div th:if="${accounts.getNumber() == page}">
         <span th:text="${page + 1}"></span>
-      </th:block>
-      <th:block th:if="${accounts.getNumber() != page}">
+      </div>
+      <div th:if="${accounts.getNumber() != page}">
         <a th:href="'/accounts?p=' + ${page}" th:text="${page + 1}"></a>
-      </th:block>
       </div>
       </th:block>
     </div>
