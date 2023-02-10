@@ -15,7 +15,7 @@ public class Holder {
 		@Param
 		public String from;
 
-		public String exe() {
+		public String respond() {
 			model.addAttribute("from", from);
 			return "signin";
 		}

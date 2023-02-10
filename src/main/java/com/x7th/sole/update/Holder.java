@@ -16,7 +16,7 @@ public class Holder {
 
 		public Model model;
 
-		public String exe() throws AnonymousException {
+		public String respond() throws AnonymousException {
 			AccountEntity account = accountService.getCurrent();
 			model.addAttribute("account", account);
 			return "account_update";

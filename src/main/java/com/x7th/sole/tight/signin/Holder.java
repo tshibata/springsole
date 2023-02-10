@@ -41,7 +41,7 @@ public class Holder {
 		@Param
 		public String from;
 
-		public String exe() {
+		public String respond() {
 			Optional<AccountEntity> account = accountService.get(username).filter(a -> accountService.canSignin(a) && passwordEncoder.matches(password, a.password));
 			if (account.isPresent()) {
 				session.setAttribute("account_id", account.orElseThrow(NotFoundException::new).id);

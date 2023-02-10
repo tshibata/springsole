@@ -23,7 +23,7 @@ public class Holder {
 
 		public Model model;
 
-		public String exe(String id) throws AnonymousException, ForbiddenException {
+		public String respond(String id) throws AnonymousException, ForbiddenException {
 			if (! accountService.isAdmin(accountService.getCurrent())) {
 				throw new ForbiddenException();
 			}
@@ -39,7 +39,7 @@ public class Holder {
 		@Param
 		public boolean valid;
 
-		public String exe(String id) throws AnonymousException, ForbiddenException {
+		public String respond(String id) throws AnonymousException, ForbiddenException {
 			if (! accountService.isAdmin(accountService.getCurrent())) {
 				throw new ForbiddenException();
 			}

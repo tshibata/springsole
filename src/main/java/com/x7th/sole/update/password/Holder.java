@@ -32,7 +32,7 @@ public class Holder {
 		@Param
 		public String verify;
 
-		public String exe() throws AnonymousException {
+		public String respond() throws AnonymousException {
 			AccountEntity account = accountService.getCurrent();
 			if (! passwordEncoder.matches(oldPassword, account.password)) {
 				attr.addFlashAttribute("err", "Old password didn't match.");

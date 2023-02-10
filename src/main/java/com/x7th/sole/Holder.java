@@ -7,7 +7,7 @@ public class Holder {
 
 	public class Get {
 
-		public String exe() {
+		public String respond() {
 			return "redirect:/accounts";
 		}
 	}

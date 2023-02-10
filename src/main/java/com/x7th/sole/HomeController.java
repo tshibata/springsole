@@ -97,7 +97,7 @@ public class HomeController {
 					}
 				}
 			}
-			Method method = c2.getDeclaredMethod("exe", pathParamTypes.toArray(new Class<?>[]{}));
+			Method method = c2.getDeclaredMethod("respond", pathParamTypes.toArray(new Class<?>[]{}));
 			return (String) method.invoke(o, pathParams.toArray());
 		} catch (ClassNotFoundException ex) {
 			throw new NotFoundException();

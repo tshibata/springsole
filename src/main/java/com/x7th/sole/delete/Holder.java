@@ -27,7 +27,7 @@ public class Holder {
 		@Param
 		public String password;
 
-		public String exe() throws AnonymousException {
+		public String respond() throws AnonymousException {
 		AccountEntity account = accountService.getCurrent();
 			if (! passwordEncoder.matches(password, account.password)) {
 				attr.addFlashAttribute("err", "Password didn't match.");

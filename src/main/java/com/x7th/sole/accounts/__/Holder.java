@@ -23,7 +23,7 @@ public class Holder {
 
 		public Model model;
 
-		public String exe(String username) {
+		public String respond(String username) {
 			AccountEntity account = accountService.get(username).orElseThrow(NotFoundException::new);
 			if (! account.valid) {
 				throw new NotFoundException();

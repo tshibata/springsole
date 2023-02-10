@@ -21,7 +21,7 @@ public class Holder {
 
 	public class Get {
 
-		public String exe() throws ForbiddenException {
+		public String respond() throws ForbiddenException {
 			if (! properties.getOpenEntry()) {
 				throw new ForbiddenException();
 			}
@@ -42,7 +42,7 @@ public class Holder {
 		@Param
 		public String verify;
 
-		public String exe() throws ForbiddenException {
+		public String respond() throws ForbiddenException {
 			if (! properties.getOpenEntry()) {
 				throw new ForbiddenException();
 			}

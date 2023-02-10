@@ -16,7 +16,7 @@ public class Holder {
 		@Param
 		public String description;
 
-		public String exe() throws AnonymousException {
+		public String respond() throws AnonymousException {
 			AccountEntity account = accountService.getCurrent();
 			account.description = description;
 			accountService.post(account);

@@ -25,7 +25,7 @@ public class Holder {
 		@Param
 		public int p;
 
-		public String exe() {
+		public String respond() {
 			Pageable pageable = PageRequest.of(p, 2);
 			Page<AccountEntity> page = accountService.getAll(true, pageable);
 			model.addAttribute("accounts", page);

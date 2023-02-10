@@ -25,7 +25,7 @@ public class Holder {
 		@Param
 		public int p;
 
-		public String exe() throws AnonymousException, ForbiddenException {
+		public String respond() throws AnonymousException, ForbiddenException {
 			Pageable pageable = PageRequest.of(p, 2);
 			if (! accountService.isAdmin(accountService.getCurrent())) {
 				throw new ForbiddenException();

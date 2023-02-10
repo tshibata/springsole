@@ -20,7 +20,7 @@ public class Holder {
 
 		public Model model;
 
-		public String exe() throws AnonymousException, ForbiddenException {
+		public String respond() throws AnonymousException, ForbiddenException {
 			AccountEntity account = accountService.getCurrent();
 			if (! accountService.isAdmin(account)) {
 				throw new ForbiddenException();
@@ -42,7 +42,7 @@ public class Holder {
 		@Param
 		public String verify;
 
-		public String exe() throws AnonymousException, ForbiddenException {
+		public String respond() throws AnonymousException, ForbiddenException {
 			AccountEntity account = accountService.getCurrent();
 			if (! accountService.isAdmin(account)) {
 				throw new ForbiddenException();

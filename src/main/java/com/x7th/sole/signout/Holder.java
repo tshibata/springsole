@@ -14,7 +14,7 @@ public class Holder {
 
 	public class Post {
 
-		public String exe() {
+		public String respond() {
 			session.setAttribute("account_id", null);
 			return "redirect:/signin";
 		}

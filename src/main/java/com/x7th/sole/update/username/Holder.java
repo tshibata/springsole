@@ -28,7 +28,7 @@ public class Holder {
 		@Param
 		public String username;
 
-		public String exe() throws AnonymousException {
+		public String respond() throws AnonymousException {
 			AccountEntity account = accountService.getCurrent();
 			if (! accountUtil.checkUsername(attr, username)) {
 				return "redirect:/update";
