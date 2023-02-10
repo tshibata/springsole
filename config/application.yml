@@ -1,0 +1,7 @@
+spring:
+  jpa:
+    #show-sql: true
+  thymeleaf:
+    prefix: file:src/main/resources/templates/
+    cache: false
+
